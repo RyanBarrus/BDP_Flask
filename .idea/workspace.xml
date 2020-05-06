@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dfffda3-86ee-42fd-af82-62add0245dec" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views.py" afterDir="false" />
     </list>
@@ -127,16 +128,5 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="461" y="222" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1588790883615" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/FlaskWebProject/views.py</url>
-          <line>3</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
