@@ -1,6 +1,7 @@
 import pyodbc
 from sqlalchemy import create_engine
 from urllib.parse import quote_plus
+import sys
 
 class data:
 
@@ -11,6 +12,8 @@ class data:
         self.pwd = cfg_server['db_pwd']
 
     def connect(self):
+        print(sys.version)
+        print(f'Driver={{SQL Server}};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
         conn = pyodbc.connect(f'Driver={{SQL Server}};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
         return conn
 
