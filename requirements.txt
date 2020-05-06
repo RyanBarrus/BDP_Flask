@@ -1,4 +1,5 @@
 pandas
 flask
+flask_wtf
 pyodbc
 sqlalchemy
