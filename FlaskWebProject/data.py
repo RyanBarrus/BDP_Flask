@@ -11,7 +11,9 @@ class data:
         self.pwd = cfg_server['db_pwd']
 
     def connect(self):
-        conn = pyodbc.connect(f'Driver={{SQL Server}};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
+        drivers = [item for item in pyodbc.drivers()]
+        driver = drivers[-1]
+        conn = pyodbc.connect(f'Driver={driver};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
         return conn
 
     def get_rows(self,query,parameters = None) :
