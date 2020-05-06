@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Validation - Pallet Item List</h2>
+
+
+<form action="/validation/palletitem" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="AddItem">Add to pallet item list</label>
+     <select name="AddItem" id="AddItem">
+        <option value="{{Differences[0]['ItemNumber']}}" selected>{{Differences[0]['ItemNumber']}}</option>
+        {% for Difference in Differences[1:] %}
+        <option value="{{Difference['ItemNumber']}}">{{Difference['ItemNumber']}}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value="Add">Add</button>
+
+</form>
+
+<form action="/validation/palletitem" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="MultiExistingItems">Remove from existing pallet item list</label>
+    <select multiple name="MultiExistingItems" id="MultiExistingItems" size="15">
+        <option value="{{PalletItems[0]['ItemNumber']}}" selected>{{PalletItems[0]['ItemNumber']}}</option>
+        {% for PalletItem in PalletItems[1:] %}
+        <option value="{{PalletItem['ItemNumber']}}">{{PalletItem['ItemNumber']}}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value="Remove">Remove</button>
+
+</form>
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/scripts/custom/Enter_NoSubmit.js"></script>
+{% endblock %}
+
+

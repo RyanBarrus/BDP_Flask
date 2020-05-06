@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Sales Order - Distribution Center Management</h2>
+
+<form action="/salesorder/dclist" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="Available">Available customers to add to the DC list</label>
+    <select name="Available" id="Available">
+        <option value="{{Availables[0]['CustomerNumber']}}" selected>{{Availables[0]['CustomerNumber']}}</option>
+        {% for Available in Availables[1:] %}
+        <option value="{{Available['CustomerNumber']}}">{{Available['CustomerNumber']}}</option>
+        {% endfor %}
+    </select>
+
+    <label for="DCID">Distribution Center ID</label>
+    <input type="number" class="validate" name="DCID" id="DCID"/>
+
+    <label for="GLN">Distribution Center GLN</label>
+    <input type="number" class="validate" name="GLN" id="GLN"/>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value="Add">Add</button>
+
+    <hr />
+
+    {% if not ExistingData %}
+    <label for="Existing">Update or remove customers from DC list</label>
+    <select name="Existing" id="Existing">
+        <option value="{{Existings[0]['CustomerNumber']}}" selected>{{Existings[0]['CustomerNumber']}}</option>
+        {% for Existing in Existings[1:] %}
+        <option value="{{Existing['CustomerNumber']}}">{{Existing['CustomerNumber']}}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
+    {% endif %}
+
+
+    {% if ExistingData %}
+    <label for="ExistingCustomerNumber">Customer Number</label>
+    <input type="text" class="validate" name="ExistingCustomerNumber" id="ExistingCustomerNumber" value="{{ExistingData['CustomerNumber']}}" readonly/>
+
+    <label for="ExistingDCID">Distribution Center ID</label>
+    <input type="number" class="validate" name="ExistingDCID" id="ExistingDCID" value="{{ExistingData['DCID']}}"/>
+
+    <label for="ExistingGLN">Distribution Center GLN</label>
+    <input type="number" class="validate" name="ExistingGLN" id="ExistingGLN" value="{{ExistingData['GLN']}}"/>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value="Update">Update</button>
+    <button class="btn btn-primary" type="submit" name="submit_button" value="Remove">Remove</button>
+    {% endif %}
+
+<form/>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
+
+
+
+
+

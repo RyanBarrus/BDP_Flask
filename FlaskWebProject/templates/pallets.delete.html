@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Pallets - View & Delete</h2>
+
+
+<form action="/pallets/delete" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    {% if pallets %}
+    <label for="Pallet">Pallet</label>
+    <select name="Pallet" id="Pallet">
+        <option value="{{pallets[0]['Pallet']}}" selected>{{pallets[0]['Pallet']}}</option>
+        {% for pallet in pallets[1:] %}
+        <option value="{{pallet['Pallet']}}">{{pallet['Pallet']}}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
+    {% endif %}
+    <hr />
+
+    {% if palletDatas %}
+    <table style="width:100%">
+        <tr>
+            <th>Item Number</th>
+            <th>Case Barcode</th>
+            <th>Pallet</th>
+            <th>Timestamp</th>
+            <th>Upload User</th>
+        </tr>
+        {% for palletData in palletDatas %}
+        <tr>
+            <td>{{palletData['ItemNumber']}}</td>
+            <td>{{palletData['CaseBarcode']}}</td>
+            <td>{{palletData['Pallet']}}</td>
+            <td>{{palletData['Timestamp']}}</td>
+            <td>{{palletData['UploadUsername']}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <button class="btn btn-primary" type="submit" name="submit_button" value = "Delete">Delete</button>
+    {% endif %}
+</form>
+
+
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
+
+
+

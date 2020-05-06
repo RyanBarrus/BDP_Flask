@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastics</title>
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">Plastics</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pallets<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('palletsUpload') }}">Upload</a></li>
+                            <li><a href="{{ url_for('palletsStirrer') }}">Stirrer Assign</a></li>
+                            <li><a href="{{ url_for('palletsDelete') }}">View & Delete</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sales Orders<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('salesorderUpload') }}">Upload</a></li>
+                            <li><a href="{{ url_for('salesorderDelete') }}">View & Delete</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ url_for('salesorderWrin') }}">Manage WRIN List</a></li>
+                            <li><a href="{{ url_for('salesorderDC') }}">Manage DC List</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Validation<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('validationPalletItem') }}">Pallet Item list</a></li>
+                            <li><a href="{{ url_for('validationStirrerItem') }}">Stirrer Item list</a></li>
+                            <li><a href="{{ url_for('validationPalletCount') }}">Pallet Required Counts</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"><img src = /static/images/admin.png class="icon"></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ url_for('userPermissions') }}">Manage User Permissions</a></li>
+                            <li><a class="nav-link" href="{{ url_for('userDelete') }}">View & Delete Users</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"><img src = /static/images/user.png class="icon"></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Logged in as {{currentuser.username}}</li>
+                            <li class="divider"></li>
+                            <li><a class="nav-link" href="{{ url_for('userLogin') }}">Change User</a></li>
+                            <li><a class="nav-link" href="{{ url_for('userCreate') }}">Create User</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        {% block content %}{% endblock %}
+        <hr />
+        <footer>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+
+
+                {% for category, message in messages %}
+                    {% if category == 'success' %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+
+                    {% if category == 'error' %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+
+                {% endfor %}
+
+              {% endif %}
+            {% endwith %}
+        </footer>
+    </div>
+
+
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

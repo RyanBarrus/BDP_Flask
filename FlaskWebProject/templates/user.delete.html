@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>User Management - Delete</h2>
+
+
+
+<form action="/user/delete" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+
+    <label for="MultiSelect">Users</label>
+    <select multiple name="MultiSelect" method="GET" action="/" size="15">
+        <option value="{{users[0]['UserID']}}" selected>{{users[0]['UserName']}}</option>
+        {% for user in users[1:] %}
+        <option value="{{user['UserID']}}">{{user['UserName']}}</option>
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary" type="submit">Delete</button>
+</form>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

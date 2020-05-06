@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>User Management - Permissions</h2>
+
+
+<form action="/user/permissions" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="Users">Users</label>
+    <select name="Users" method="GET" action="/">
+        <option value="{{users[0]['UserID']}}" selected>{{users[0]['UserName']}}</option>
+        {% for user in users[1:] %}
+        <option value="{{user['UserID']}}">{{user['UserName']}}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
+
+    <hr />
+
+    {% if permissionDatas %}
+
+    <label for="MultiUserPermisions">User Permissions</label>
+    <select multiple name="MultiUserPermisions" method="GET" action="/" size="15">
+        {% for permissionData in permissionDatas %}
+            {% if permissionData['HasPermission'] == 1 %}
+                <option value="{{permissionData['PermissionID']}}" selected>{{permissionData['PermissionName']}}</option>
+            {% endif %}
+
+            {% if permissionData['HasPermission'] == 0 %}
+                <option value="{{permissionData['PermissionID']}}">{{permissionData['PermissionName']}}</option>
+            {% endif %}
+
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value = "Update">Update</button>
+    {% endif %}
+
+    <hr>
+
+    <label for="MultiDefaultPermissions">Default Permisisons</label>
+    <select multiple name="MultiDefaultPermissions" method="GET" action="/" size="15">
+        {% for defaultPermission in defaultPermissions %}
+            {% if defaultPermission['HasPermission'] == 1 %}
+                <option value="{{defaultPermission['PermissionId']}}" selected>{{defaultPermission['PermissionName']}}</option>
+            {% endif %}
+
+            {% if defaultPermission['HasPermission'] == 0 %}
+                <option value="{{defaultPermission['PermissionId']}}">{{defaultPermission['PermissionName']}}</option>
+            {% endif %}
+
+        {% endfor %}
+    </select>
+
+    <button class="btn btn-primary" type="submit" name="submit_button" value = "SetDefaults">Update</button>
+
+
+</form>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>User Management - Create</h2>
+
+
+
+<form action="/user/create" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="User Name">User Name</label>
+    <input type="text" class="validate" name="User Name" id="User Name" required/>
+
+    <label for="Password">Password</label>
+    <input type="password" class="validate" name="Password" id="Password" required/>
+
+    <button class="btn btn-primary" type="submit">Create</button>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+

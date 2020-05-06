@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Validation - Required Counts</h2>
+
+
+<form action="/validation/palletcount" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="PalletTable">General Pallets</label>
+    <table id="PalletTable">
+        <tr>
+            <th>Item Number</th>
+            <th>Required Count</th>
+        </tr>
+            {% for PalletCount in PalletCounts %}
+         <tr>
+             <td>{{PalletCount['ItemNumber']}}</td>
+             <td><input type="number" name="{{PalletCount['ItemNumber']}}" value="{{PalletCount['RequiredCount']}}"></td>
+         </tr>
+            {% endfor %}
+    </table>
+
+    <button class="btn btn-primary" type="submit" name="submit_button">Update</button>
+
+</form>
+
+
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/scripts/custom/Enter_NoSubmit.js"></script>
+{% endblock %}
+
+
