@@ -1,3 +1,6 @@
+import sys
+print(sys.version)
+
 from os import path
 from flask import send_from_directory
 from FlaskWebProject import app
