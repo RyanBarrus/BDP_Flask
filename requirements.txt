@@ -4,3 +4,4 @@ flask_wtf
 pyodbc
 sqlalchemy
 formencode
+waitress
