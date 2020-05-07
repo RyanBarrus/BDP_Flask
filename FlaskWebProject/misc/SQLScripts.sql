@@ -160,7 +160,7 @@ BEGIN
 END
 
 
-CREATE PROCEDURE [users].[UpdatePermissionsForUser]
+ALTER PROCEDURE [users].[UpdatePermissionsForUser]
 
 AS
 BEGIN
@@ -168,25 +168,16 @@ BEGIN
     -- interfering with SELECT statements.
     SET NOCOUNT ON
 
-	MERGE [users].[PermissionsAssignment] AS target
-	USING (
 
-		SELECT UserID,
-		PermissionID
-		
-		FROM [users].[PermissionsAssignmentStaging]
-
-		) AS source 
-	ON (target.UserID = source.UserID
-		AND target.PermissionID = source.PermissionID)
-	WHEN NOT MATCHED BY TARGET THEN
-		INSERT 
-		VALUES (
-			source.UserID,
-			source.PermissionID
+	DELETE 
+	FROM [users].[PermissionsAssignment] 
+	WHERE UserId = (
+		SELECT TOP 1 UserID FROM [users].[PermissionsAssignmentStaging]
 		)
-	WHEN NOT MATCHED BY SOURCE THEN
-		DELETE;
+
+
+	INSERT INTO [users].[PermissionsAssignment] 
+	SELECT UserID,PermissionID FROM users.PermissionsAssignmentStaging
 
 	TRUNCATE TABLE [users].[PermissionsAssignmentStaging]
 
@@ -202,23 +193,12 @@ BEGIN
     -- interfering with SELECT statements.
     SET NOCOUNT ON
 
+	DELETE FROM [Users].PermissionsDefaults
 
-	MERGE [Users].PermissionsDefaults AS target
-	USING (
 
-		SELECT PermissionID 
-		
-		FROM users.PermissionsAssignmentStaging
 
-		) AS source 
-	ON (target.PermissionID = source.PermissionID)
-	WHEN NOT MATCHED BY TARGET THEN
-		INSERT 
-		VALUES (
-			source.PermissionID
-		)
-	WHEN NOT MATCHED BY SOURCE THEN
-		DELETE;
+	INSERT INTO [Users].PermissionsDefaults
+	SELECT PermissionID FROM users.PermissionsAssignmentStaging
 
 	TRUNCATE TABLE [users].[PermissionsAssignmentStaging]
 
@@ -428,3 +408,7 @@ FROM users.PermissionsAssignment
 
 
 
+INSERT INTO  users.PermissionsAssignment VALUES
+(1,3)
+
+SELECT [UserID], [UserName] FROM [users].[login]

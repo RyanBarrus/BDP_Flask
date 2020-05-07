@@ -1,5 +1,5 @@
 from FlaskWebProject.globals import *
-from flask import render_template, request, flash, url_for, redirect, session
+from flask import render_template, request, flash, url_for, redirect
 from FlaskWebProject import app
 from hashlib import md5
 import pandas as pd
@@ -73,18 +73,20 @@ def userDelete():
 @app.route('/user/permissions', methods=['GET', 'POST'])
 def userPermissions():
     permissionDatas = None
+    userid = 1
     if request.method == 'POST':
         if request.form['submit_button'] == "View":
             query = "EXEC [users].PermissionsForUser @UserID = ?"
-            parameters = request.form['Users']
+            userid = request.form['Users']
+            parameters = userid
             permissionDatas = bdp_sqlserver.get_rows(query, parameters)
 
         if request.form['submit_button'] == "Update":
             selections = request.form.getlist('MultiUserPermisions')
-            UserID = request.form['Users']
+            userid = request.form['Users']
 
             df = pd.DataFrame(
-                {'UserID': [UserID] * len(selections),
+                {'UserID': [userid] * len(selections),
                  'PermissionID': selections}
             )
 
@@ -97,16 +99,19 @@ def userPermissions():
 
             query = "EXEC [users].UpdatePermissionsForUser"
             bdp_sqlserver.sql_execute(query)
-            currentuser.setPermissions(UserID)
+            currentuser.setPermissions(userid)
 
+            query = "EXEC [users].PermissionsForUser @UserID = ?"
+            parameters = userid
+            permissionDatas = bdp_sqlserver.get_rows(query, parameters)
             flash('Permissions updated', "success")
 
         if request.form['submit_button'] == "SetDefaults":
             selections = request.form.getlist('MultiDefaultPermissions')
-            UserID = 1
+            userid = 1
 
             df = pd.DataFrame(
-                {'UserID': [UserID] * len(selections),
+                {'UserID': [userid] * len(selections),
                  'PermissionID': selections}
             )
 
@@ -119,11 +124,11 @@ def userPermissions():
 
             query = "EXEC [users].UpdateDefaultPermissions"
             bdp_sqlserver.sql_execute(query)
-            currentuser.setPermissions(UserID)
+            currentuser.setPermissions(userid)
             flash('Permissions updated', "success")
 
     users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [users].[login]")
     defaultPermissions = bdp_sqlserver.get_rows("EXEC [Users].DefaultPermissions")
     username = currentuser.ip_users[request.remote_addr]['username']
     return render_template('user.permissions.html', users=users, permissionDatas=permissionDatas,
-                           defaultPermissions=defaultPermissions, username=username)
+                           defaultPermissions=defaultPermissions, userid=userid, username=username)

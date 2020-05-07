@@ -1,12 +1,46 @@
 from FlaskWebProject.globals import *
 from flask import render_template, request, flash
 from FlaskWebProject import app
+from formencode import variabledecode
+import pandas as pd
+from datetime import datetime
 
 
 @app.route('/salesorder/upload', methods=['GET', 'POST'])
 def salesorderUpload():
     username = currentuser.ip_users[request.remote_addr]['username']
-    return (render_template('salesorder.upload.html', username=username))
+    if request.method == 'POST':
+        parsed = variabledecode.variable_decode(request.form, dict_char='_')
+        SONumber = parsed['Available']
+        Pallets = [x['Pallet'] for x in [parsed[str(x)] for x in range(1,10)] if x['Pallet'] != '' and x['Quantity'] != '']
+        Quantities = [x['Quantity'] for x in [parsed[str(x)] for x in range(1, 10)] if x['Pallet'] != '' and x['Quantity'] != '']
+        Timestamp = str(datetime.now())
+        datalen = len(Pallets)
+
+        df = pd.DataFrame(
+            {'SalesOrderNumber': [SONumber] * datalen,
+             'Pallet': Pallets,
+             'Quantity': Quantities,
+             'Timestamp': [Timestamp] * datalen,
+             'UploadUsername': [username] * datalen
+             }
+        )
+
+        df.to_sql(name='shipments',
+                  con=bdp_sqlserver.alchemy_engine(),
+                  schema="data",
+                  if_exists="append",
+                  method="multi",
+                  index=False)
+
+        flash('Upload successful', 'success')
+
+
+
+    PalletHolders = [{'Pallet':str(x)+'_Pallet','Quantity':str(x)+'_Quantity','ItemNumber':str(x)+'_ItemNumber'} for x in range(1,10)]
+    query = "SELECT SONumber FROM dbo.a_PlasticsPotentialASNOrders ORDER BY Posted, SONumber"
+    Availables = bhprd_sqlserver.get_rows(query)
+    return (render_template('salesorder.upload.html', Availables=Availables,PalletHolders=PalletHolders, username=username))
 
 
 @app.route('/salesorder/wrinlist', methods=['GET', 'POST'])

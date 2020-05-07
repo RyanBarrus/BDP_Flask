@@ -7,11 +7,11 @@ from datetime import datetime
 
 @app.route('/pallets/upload', methods=['GET', 'POST'])
 def palletsUpload():
+    username = currentuser.ip_users[request.remote_addr]['username']
     if request.method == 'POST':
         ItemNumber = str(request.form['ItemNumber'])
         Pallet = str(request.form['PalletNumber'])
         Timestamp = str(datetime.now())
-        UploadUsername = currentuser.username
         CaseBarcodes = [x for x in request.form.getlist('cases') if x != '']
         CaseCount = len(CaseBarcodes)
 
@@ -20,7 +20,7 @@ def palletsUpload():
              'CaseBarcode': CaseBarcodes,
              'Pallet': [Pallet] * CaseCount,
              'Timestamp': [Timestamp] * CaseCount,
-             'UploadUsername': [UploadUsername] * CaseCount
+             'UploadUsername': [username] * CaseCount
             }
         )
 
@@ -35,17 +35,25 @@ def palletsUpload():
 
     cases = [x for x in range(1, 31)]
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[PalletItemList]")
-    username = currentuser.ip_users[request.remote_addr]['username']
     return (render_template('pallets.upload.html', ItemList=ItemList, cases=cases, username=username))
 
 
 @app.route('/pallets/stirrer', methods=['GET', 'POST'])
 def palletsStirrer():
+    username = currentuser.ip_users[request.remote_addr]['username']
     if request.method == 'POST':
-        flash('Not yet implemeneted', "error")
+        ItemNumber = request.form['ItemNumber']
+        Pallet = request.form['PalletNumber']
+        Timestamp = str(datetime.now())
+        UploadUsername = username
+        StartCase = request.form['StartCase']
+        EndCase = request.form['EndCase']
+        query = "EXEC [data].[FirstLastInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @StartCase =?, @EndCase =?"
+        parameters = (ItemNumber,Pallet,Timestamp,UploadUsername,StartCase,EndCase)
+        bdp_sqlserver.sql_execute(query,parameters)
+        flash('Upload successful', "success")
 
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
-    username = currentuser.ip_users[request.remote_addr]['username']
     return (render_template('pallets.stirrer.html', ItemList=ItemList, username=username))
 
 
@@ -66,4 +74,5 @@ def palletsDelete():
             flash('Successfully deleted pallett: ' + pallet, 'success')
 
     pallets = bdp_sqlserver.get_rows("SELECT Pallet FROM [data].[ViewPallets] ORDER BY Timestamp desc")
+    username = currentuser.ip_users[request.remote_addr]['username']
     return (render_template('pallets.delete.html', pallets=pallets, palletDatas=palletDatas, username=username))

@@ -8,30 +8,27 @@ from FlaskWebProject.views_salesorder import *
 from FlaskWebProject.views_validation import *
 from FlaskWebProject.views_fetch import *
 
-
 '''
 Todo:
 
-Pallets.stirrer
-    post
-
+salesorder.upload
+    js/fetch validation to check if pallet is already used, so already used
+    js/fetch to auto assign default quantities
+    js/fetch to get sales order items/quantities and display remaining
+    
+    
 salesorder.delete
     everything
 
-salesorder.upload
-    everything
+
     
 data / sql
     clean code to setup in new database
 
-validation.palletitem create
-    switch to lookup from bhprd
-    
 admin
     add admin functionality
 
 '''
-
 
 @app.route('/')
 @app.route('/home')
@@ -44,5 +41,3 @@ def home():
 def favicon():
     return send_from_directory(path.join(app.root_path, 'static/images'),
                                'favicon.png', mimetype='image/vnd.microsoft.icon')
-
-

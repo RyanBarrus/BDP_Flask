@@ -4,12 +4,45 @@
 
 <h2>Sales Order - Upload</h2>
 
+<form action="/salesorder/upload" method="POST">
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="Available">Sales Orders</label>
+    <select name="Available" id="Available" onchange="getorderdetails()">
+        <option value="{{Availables[0]['SONumber']}}" selected>{{Availables[0]['SONumber']}}</option>
+        {% for Available in Availables[1:] %}
+        <option value="{{Available['SONumber']}}">{{Available['SONumber']}}</option>
+        {% endfor %}
+    </select>
+
+    <div id="OrderDetails"></div>
+
+    <table id="PalletHolders">
+        <tr>
+            <th style="width: 45%">Pallet</th>
+            <th style="width: 45%">ItemNumber</th>
+            <th style="width: 40px">Quantity</th>
+        <tr>
+            {% for PalletHolder in PalletHolders %}
+        <tr>
+            <td style="width: 45%"><input style="width: 100%;" type="text" class="PalletsJS" onchange="getpalletdetails(this)" pattern="0010895611002\d{7}" name="{{PalletHolder['Pallet']}}"></td>
+            <td style="width: 45%" name="{{PalletHolder['ItemNumber']}}"></td>
+            <td style="width: 40px"><input style="width: 100%;" type="number" name="{{PalletHolder['Quantity']}}"></td>
+        </tr>
+            {% endfor %}
+    </table>
+
+
+    <button class="btn btn-primary" onClick="validate(this.form)">Upload</button>
+
+<form/>
 
 {% endblock %}
 
 
 {% block scripts %}
 <script src="/static/scripts/custom/Enter_NoSubmit.js"></script>
+<script src="/static/scripts/custom/validate_salesorder_upload.js"></script>
 {% endblock %}
 
 

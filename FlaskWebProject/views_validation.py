@@ -72,7 +72,6 @@ def validationPalletCount():
 
         query = "EXEC [validation].[UpdatePalletCount]"
         bdp_sqlserver.sql_execute(query)
-        currentuser.setPermissions()
         flash('Pallet Required Counts Updated', "success")
 
     PalletCounts = bdp_sqlserver.get_rows("SELECT ItemNumber,RequiredCount FROM data.ViewValidationPalletCounts")

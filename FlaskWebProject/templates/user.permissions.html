@@ -10,11 +10,17 @@
 
     <label for="Users">Users</label>
     <select name="Users" method="GET" action="/">
-        <option value="{{users[0]['UserID']}}" selected>{{users[0]['UserName']}}</option>
-        {% for user in users[1:] %}
-        <option value="{{user['UserID']}}">{{user['UserName']}}</option>
+        {% for user in users %}
+            {% if user['UserID']|int() == UserID|int() %}
+                <option value="{{user['UserID']}}" selected>{{user['UserName']}}</option>
+            {% endif %}
+
+            {% if user['UserID']|int() != UserID|int() %}
+                <option value="{{user['UserID']}}">{{user['UserName']}}</option>
+            {% endif %}
         {% endfor %}
     </select>
+
     <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
 
     <hr />

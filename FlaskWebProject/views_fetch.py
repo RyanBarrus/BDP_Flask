@@ -32,3 +32,34 @@ def fetchPalletCount():
     return make_response(jsonify({"requiredCount": requiredCount,
                                   "PalletExistingCount": PalletExistingCount,
                                   "ExistingPalletAssignment": ExistingPalletAssignment}), 200)
+
+
+@app.route("/fetch/orderdetails", methods=["POST"])
+def fetchOrderDetails():
+    req = request.get_json()
+    query = "SELECT * FROM dbo.SOP10200 WHERE SOPNUMBE = ? UNION SELECT *  FROM dbo.SOP30300 WHERE SOPNUMBE = ?"
+    SONumber = req['SONumber']
+    parameters = (SONumber,SONumber)
+    expecteds = bhprd_sqlserver.get_rows(query, parameters)
+
+    OrderDetails = [{"ItemNumber": x[1], "GPQuantity": x[2], "Remaining": x[2]} for x in expecteds]
+
+    return make_response(jsonify({"OrderDetails": OrderDetails}), 200)
+
+@app.route("/fetch/palletdetails", methods=["POST"])
+def fetchPalletDetails():
+    req = request.get_json()
+    query = "SELECT ItemNumber, COUNT(*) FROM data.pallets WHERE pallet = ? GROUP BY ItemNumber"
+    Pallet = req['Pallet']
+    parameters = (Pallet)
+    PalletRecords = bdp_sqlserver.get_rows(query, parameters)
+
+    if len(PalletRecords) > 0:
+        PalletItemQuantity = PalletRecords[0]
+        PalletDetails = {"ItemNumber": PalletItemQuantity[0],"Quantity": PalletItemQuantity[1]}
+        return make_response(jsonify({"PalletDetails": PalletDetails}), 200)
+    else:
+        return make_response(jsonify({"NoMatch": "NoMatch"}), 200)
+
+
+
