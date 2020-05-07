@@ -14,7 +14,8 @@ Todo:
 salesorder.upload
     js get old itemnubmer + quantity if exists and subtract from GPQuantity
     js check for changes to quantity add new/ subtract old (probably replaces the add/subtract for getpalletdetails
-    
+    finish ftp / sendToHavi funciton
+      
 data / sql
     clean code to setup in new database
     

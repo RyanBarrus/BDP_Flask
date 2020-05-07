@@ -12,7 +12,10 @@ cfg = {
         'db_uid' : 'ryanbarrus',
         'db_pwd' : 'BringCafeRio2TX'
     },
-    "AdminHashedPassword": "76e6b7d17c392a5cabc1609198d88f1d"
+    "AdminHashedPassword": "76e6b7d17c392a5cabc1609198d88f1d",
+    "FTP_URL": "bdplastics@tp.uat.liaison.com:/inbound",
+    "FTP_User": "bdplastics",
+    "FTP_Pass": "OBEQCL2Wq6"
 }
 
 

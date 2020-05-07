@@ -4,7 +4,7 @@ from FlaskWebProject import app
 from formencode import variabledecode
 import pandas as pd
 from datetime import datetime
-
+from ftplib import FTP
 
 @app.route('/salesorder/upload', methods=['GET', 'POST'])
 def salesorderUpload():
@@ -159,3 +159,10 @@ def salesorderDC():
                             ExistingData=ExistingData, username=username))
 
 
+def sendToHavi(df,csvname):
+    #check csv naming convention
+    uploadfile = df.to_csv()
+    ftp = FTP(cfg["FTP_URL"])
+    ftp.login(cfg["FTP_User"], cfg["FTP_Pass"])
+
+    ftp.storbinary('STOR ' + csvname, uploadfile)
