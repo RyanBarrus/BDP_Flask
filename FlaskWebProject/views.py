@@ -12,16 +12,12 @@ from FlaskWebProject.views_fetch import *
 Todo:
 
 salesorder.upload
-    js/fetch validation to check if pallet is already used, so already used
-    js/fetch to auto assign default quantities
-    js/fetch to get sales order items/quantities and display remaining
-    
+    js get old itemnubmer + quantity if exists and subtract from GPQuantity
+    js check for changes to quantity add new/ subtract old (probably replaces the add/subtract for getpalletdetails
     
 salesorder.delete
     everything
 
-
-    
 data / sql
     clean code to setup in new database
 

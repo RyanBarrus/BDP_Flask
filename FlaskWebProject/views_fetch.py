@@ -49,17 +49,24 @@ def fetchOrderDetails():
 @app.route("/fetch/palletdetails", methods=["POST"])
 def fetchPalletDetails():
     req = request.get_json()
-    query = "SELECT ItemNumber, COUNT(*) FROM data.pallets WHERE pallet = ? GROUP BY ItemNumber"
     Pallet = req['Pallet']
+    query = "SELECT TOP 1 SalesOrderNumber FROM data.shipments WHERE Pallet = ?"
+    parameters = (Pallet)
+    UsedRecords = bdp_sqlserver.get_rows(query, parameters)
+    UsedPallet = "" if len(UsedRecords) == 0 else UsedRecords[0][0]
+
+
+    query = "SELECT ItemNumber, COUNT(*) FROM data.pallets WHERE pallet = ? GROUP BY ItemNumber"
     parameters = (Pallet)
     PalletRecords = bdp_sqlserver.get_rows(query, parameters)
 
     if len(PalletRecords) > 0:
         PalletItemQuantity = PalletRecords[0]
         PalletDetails = {"ItemNumber": PalletItemQuantity[0],"Quantity": PalletItemQuantity[1]}
-        return make_response(jsonify({"PalletDetails": PalletDetails}), 200)
+        return make_response(jsonify({"PalletDetails": PalletDetails,
+                                      "UsedPallet": UsedPallet}), 200)
     else:
-        return make_response(jsonify({"NoMatch": "NoMatch"}), 200)
+        return make_response(jsonify({"UsedPallet": UsedPallet}), 200)
 
 
 

@@ -71,7 +71,7 @@ def palletsDelete():
             query = "DELETE FROM [data].[pallets] WHERE PALLET = ?"
             parameters = pallet
             bdp_sqlserver.sql_execute(query, parameters)
-            flash('Successfully deleted pallett: ' + pallet, 'success')
+            flash('Successfully deleted pallet: ' + pallet, 'success')
 
     pallets = bdp_sqlserver.get_rows("SELECT Pallet FROM [data].[ViewPallets] ORDER BY Timestamp desc")
     username = currentuser.ip_users[request.remote_addr]['username']

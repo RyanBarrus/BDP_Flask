@@ -35,12 +35,34 @@ def salesorderUpload():
 
         flash('Upload successful', 'success')
 
-
-
     PalletHolders = [{'Pallet':str(x)+'_Pallet','Quantity':str(x)+'_Quantity','ItemNumber':str(x)+'_ItemNumber'} for x in range(1,10)]
     query = "SELECT SONumber FROM dbo.a_PlasticsPotentialASNOrders ORDER BY Posted, SONumber"
-    Availables = bhprd_sqlserver.get_rows(query)
+    OrdersInGP = bhprd_sqlserver.get_rows(query)
+    query = "SELECT DISTINCT SalesOrderNumber FROM data.shipments"
+    Used =  bdp_sqlserver.get_rows(query)
+    Availables = [{'SONumber': x} for x in [x[0] for x in OrdersInGP] if x not in [x[0] for x in Used]]
     return (render_template('salesorder.upload.html', Availables=Availables,PalletHolders=PalletHolders, username=username))
+
+
+@app.route('/salesorder/delete', methods=['GET', 'POST'])
+def salesorderDelete():
+    orderDatas = None
+    if request.method == 'POST':
+        if request.form['submit_button'] == "View":
+            query = "SELECT * FROM [data].[Shipments] WHERE SalesOrderNumber = ?"
+            parameters = request.form['SalesOrderNumber']
+            orderDatas = bdp_sqlserver.get_rows(query, parameters)
+        if request.form['submit_button'] == "Delete":
+            SalesOrderNumber = request.form['SalesOrderNumber']
+            orderDatas = None
+            query = "DELETE FROM [data].[shipments] WHERE SalesOrderNumber = ?"
+            parameters = SalesOrderNumber
+            bdp_sqlserver.sql_execute(query, parameters)
+            flash('Successfully deleted order: ' + SalesOrderNumber, 'success')
+
+    orders = bdp_sqlserver.get_rows("SELECT SalesOrderNumber FROM [data].[ViewShipments] ORDER BY Timestamp Desc")
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('salesorder.delete.html', orders=orders, orderDatas=orderDatas, username=username))
 
 
 @app.route('/salesorder/wrinlist', methods=['GET', 'POST'])
@@ -137,7 +159,3 @@ def salesorderDC():
                             ExistingData=ExistingData, username=username))
 
 
-@app.route('/salesorder/delete', methods=['GET', 'POST'])
-def salesorderDelete():
-    username = currentuser.ip_users[request.remote_addr]['username']
-    return (render_template('salesorder.delete.html', username=username))

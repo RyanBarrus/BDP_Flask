@@ -1,6 +1,3 @@
-   // todo
-    // get old itemnubmer + quantity if exists and subtract from GPQuantity
-    // check for changes to quantity add new/ subtract old (probably replaces the add/subtract for getpalletdetails
 
 function validate(form) {
     event.preventDefault();
@@ -67,7 +64,11 @@ function getpalletdetails(input) {
               return;
             }
             response.json().then(function (data) {
-                if ("PalletDetails" in data) {
+
+                if(data["UsedPallet"] != "") {
+                    toastr.error("This pallet is already assigned to Sales Order: " + data["UsedPallet"]);
+                    input.value = ""
+                } else if ("PalletDetails" in data) {
                     document.getElementsByName(row_itemnumber)[0].innerHTML = data.PalletDetails.ItemNumber
                     document.getElementsByName(row_quantity)[0].value = data.PalletDetails.Quantity
                     document.getElementsByName(nextrow_pallet)[0].focus()
@@ -78,9 +79,11 @@ function getpalletdetails(input) {
                         old = Number(MatchingGPVal.innerHTML)
                         MatchingGPVal.innerHTML = old - data.PalletDetails.Quantity
                     }
-
-
                 }
+
+
+
+
 
 
             });
