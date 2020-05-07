@@ -5,12 +5,11 @@ class user:
 
     def guest(self,ip):
         permissions = self.setPermissions(1)
-        self.ip_users = {
-            ip: {"username": "guest",
+        self.ip_users[ip] = {"username": "guest",
                   "userid": "1",
                   "permissions": permissions
-                  }
         }
+
 
     def login(self,userid,username,ip):
         permissions = self.setPermissions(userid)
