@@ -161,7 +161,8 @@ def salesorderDC():
 
 def sendToHavi(df,csvname):
     #check csv naming convention
-    uploadfile = df.to_csv()
+    #check delimiter
+    uploadfile = df.to_csv(sep="|", header=False, index=False)
     ftp = FTP(cfg["FTP_URL"])
     ftp.login(cfg["FTP_User"], cfg["FTP_Pass"])
 
