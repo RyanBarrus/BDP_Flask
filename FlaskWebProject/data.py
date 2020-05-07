@@ -17,7 +17,7 @@ class data:
         except:
             path = '/opt/microsoft/msodbcsql17/lib64/'
             driver = os.listdir(path)
-            driverpath = path + driver
+            driverpath = path + driver[0]
             conn = pyodbc.connect(f'Driver={{{driverpath}}};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
         return conn
 
