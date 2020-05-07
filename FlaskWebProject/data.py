@@ -1,6 +1,7 @@
 import pyodbc
 from sqlalchemy import create_engine
 from urllib.parse import quote_plus
+import os
 
 class data:
 
@@ -11,9 +12,13 @@ class data:
         self.pwd = cfg_server['db_pwd']
 
     def connect(self):
-        drivers = [item for item in pyodbc.drivers()]
-        driver = drivers[-1]
-        conn = pyodbc.connect(f'Driver={driver};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
+        try:
+            conn = pyodbc.connect(f'Driver={{Sql Server}};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
+        except:
+            path = '/opt/microsoft/msodbcsql17/lib64/'
+            driver = os.listdir(path)
+            driverpath = path + driver
+            conn = pyodbc.connect(f'Driver={{{driverpath}}};Server={self.sqlServerName};Database={self.database};uid={self.uid};pwd={self.pwd};')
         return conn
 
     def get_rows(self,query,parameters = None) :
