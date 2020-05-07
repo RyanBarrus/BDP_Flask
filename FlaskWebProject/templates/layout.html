@@ -63,7 +63,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown"><img src = /static/images/user.png class="icon"></a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-header">Logged in as {{currentuser.username}}</li>
+                            <li class="dropdown-header">Logged in as {{username}}</li>
                             <li class="divider"></li>
                             <li><a class="nav-link" href="{{ url_for('userLogin') }}">Change User</a></li>
                             <li><a class="nav-link" href="{{ url_for('userCreate') }}">Create User</a></li>

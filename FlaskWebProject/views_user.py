@@ -1,5 +1,5 @@
 from FlaskWebProject.globals import *
-from flask import render_template, request, flash, url_for, redirect
+from flask import render_template, request, flash, url_for, redirect, session
 from FlaskWebProject import app
 from hashlib import md5
 import pandas as pd
@@ -7,14 +7,20 @@ import pandas as pd
 
 @app.before_request
 def before_request():
-    if currentuser.username != 'admin' \
+    ip = request.remote_addr
+    if ip not in currentuser.ip_users:
+        currentuser.guest(ip)
+    username = currentuser.ip_users[ip]['username']
+    permissions = currentuser.ip_users[ip]['permissions']
+
+    if username != 'admin' \
             and request.path[0:7] != "/static" \
             and request.path[0:6] != "/fetch" \
             and request.path[0:8] != "/favicon" \
             and request.path != "/" \
             and request.path != "/user/login" \
-            and request.path not in currentuser.permissions:
-        flash(currentuser.username + " doesn't have permission to access " + request.path, "error")
+            and request.path not in permissions:
+        flash(username + " doesn't have permission to access " + request.path, "error")
         return redirect(url_for('userLogin'))
 
 @app.route('/user/login', methods=['GET', 'POST'])
@@ -29,10 +35,10 @@ def userLogin():
             flash('Username or password incorrect', 'error')
         else:
             userID = loginResult[0][0]
-            currentuser.login(userID, username)
+            currentuser.login(userID, username,request.remote_addr)
             flash('Successfully logged in as: ' + username, 'success')
-
-    return render_template('user.login.html', currentuser=currentuser)
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return render_template('user.login.html', username=username)
 
 @app.route('/user/create', methods=['GET', 'POST'])
 def userCreate():
@@ -46,8 +52,8 @@ def userCreate():
             flash('Successfully created user: ' + username, 'success')
         else:
             flash('User already exists: ' + username, 'error')
-
-    return render_template('user.create.html', currentuser=currentuser)
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return render_template('user.create.html', username=username)
 
 @app.route('/user/delete', methods=['GET', 'POST'])
 def userDelete():
@@ -61,7 +67,8 @@ def userDelete():
         flash('Users successfully deleted', "success")
 
     users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [Users].[Login]")
-    return (render_template('user.delete.html', users=users, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('user.delete.html', users=users, username=username))
 
 @app.route('/user/permissions', methods=['GET', 'POST'])
 def userPermissions():
@@ -90,7 +97,7 @@ def userPermissions():
 
             query = "EXEC [users].UpdatePermissionsForUser"
             bdp_sqlserver.sql_execute(query)
-            currentuser.setPermissions()
+            currentuser.setPermissions(UserID)
 
             flash('Permissions updated', "success")
 
@@ -112,10 +119,11 @@ def userPermissions():
 
             query = "EXEC [users].UpdateDefaultPermissions"
             bdp_sqlserver.sql_execute(query)
-            currentuser.setPermissions()
+            currentuser.setPermissions(UserID)
             flash('Permissions updated', "success")
 
     users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [users].[login]")
     defaultPermissions = bdp_sqlserver.get_rows("EXEC [Users].DefaultPermissions")
+    username = currentuser.ip_users[request.remote_addr]['username']
     return render_template('user.permissions.html', users=users, permissionDatas=permissionDatas,
-                           defaultPermissions=defaultPermissions, currentuser=currentuser)
+                           defaultPermissions=defaultPermissions, username=username)

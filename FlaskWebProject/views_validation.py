@@ -24,8 +24,8 @@ def validationPalletItem():
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
     PalletItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[PalletItemList]")
     Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in PalletItems]]
-
-    return (render_template('validation.palletitem.html', PalletItems=PalletItems, Differences=Differences, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('validation.palletitem.html', PalletItems=PalletItems, Differences=Differences, username=username))
 
 
 @app.route('/validation/stirreritem', methods=['GET', 'POST'])
@@ -48,7 +48,8 @@ def validationStirrerItem():
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
     StirrerItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
     Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in StirrerItems]]
-    return (render_template('validation.stirreritem.html', StirrerItems=StirrerItems, Differences=Differences, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('validation.stirreritem.html', StirrerItems=StirrerItems, Differences=Differences, username=username))
 
 
 @app.route('/validation/palletcount', methods=['GET', 'POST'])
@@ -75,4 +76,5 @@ def validationPalletCount():
         flash('Pallet Required Counts Updated', "success")
 
     PalletCounts = bdp_sqlserver.get_rows("SELECT ItemNumber,RequiredCount FROM data.ViewValidationPalletCounts")
-    return (render_template('validation.palletcount.html', PalletCounts=PalletCounts, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('validation.palletcount.html', PalletCounts=PalletCounts, username=username))

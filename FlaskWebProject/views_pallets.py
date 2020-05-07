@@ -35,7 +35,8 @@ def palletsUpload():
 
     cases = [x for x in range(1, 31)]
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[PalletItemList]")
-    return (render_template('pallets.upload.html', ItemList=ItemList, cases=cases, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('pallets.upload.html', ItemList=ItemList, cases=cases, username=username))
 
 
 @app.route('/pallets/stirrer', methods=['GET', 'POST'])
@@ -44,7 +45,8 @@ def palletsStirrer():
         flash('Not yet implemeneted', "error")
 
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
-    return (render_template('pallets.stirrer.html', ItemList=ItemList, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('pallets.stirrer.html', ItemList=ItemList, username=username))
 
 
 @app.route('/pallets/delete', methods=['GET', 'POST'])
@@ -64,4 +66,4 @@ def palletsDelete():
             flash('Successfully deleted pallett: ' + pallet, 'success')
 
     pallets = bdp_sqlserver.get_rows("SELECT Pallet FROM [data].[ViewPallets] ORDER BY Timestamp desc")
-    return (render_template('pallets.delete.html', pallets=pallets, palletDatas=palletDatas, currentuser=currentuser))
+    return (render_template('pallets.delete.html', pallets=pallets, palletDatas=palletDatas, username=username))

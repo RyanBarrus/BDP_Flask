@@ -5,7 +5,8 @@ from FlaskWebProject import app
 
 @app.route('/salesorder/upload', methods=['GET', 'POST'])
 def salesorderUpload():
-    return (render_template('salesorder.upload.html', currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('salesorder.upload.html', username=username))
 
 
 @app.route('/salesorder/wrinlist', methods=['GET', 'POST'])
@@ -51,7 +52,8 @@ def salesorderWrin():
     Availables = bhprd_sqlserver.get_rows(query)
     query = "SELECT ITEMNMBR AS ItemNumber FROM dbo.a_ITEM_WRIN_MAP"
     Existings = bhprd_sqlserver.get_rows(query)
-    return (render_template('salesorder.wrinlist.html', Availables=Availables, Existings=Existings, ExistingData=ExistingData, currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('salesorder.wrinlist.html', Availables=Availables, Existings=Existings, ExistingData=ExistingData, username=username))
 
 @app.route('/salesorder/dclist', methods=['GET', 'POST'])
 def salesorderDC():
@@ -96,11 +98,12 @@ def salesorderDC():
     Availables = bhprd_sqlserver.get_rows(query)
     query = "SELECT [Customer Number] AS CustomerNumber FROM dbo.a_DistributionCenters"
     Existings = bhprd_sqlserver.get_rows(query)
+    username = currentuser.ip_users[request.remote_addr]['username']
     return (render_template('salesorder.dclist.html', Availables=Availables, Existings=Existings,
-                            ExistingData=ExistingData, currentuser=currentuser))
-
+                            ExistingData=ExistingData, username=username))
 
 
 @app.route('/salesorder/delete', methods=['GET', 'POST'])
 def salesorderDelete():
-    return (render_template('salesorder.delete.html', currentuser=currentuser))
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return (render_template('salesorder.delete.html', username=username))

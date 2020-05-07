@@ -36,7 +36,8 @@ admin
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('index.html', currentuser=currentuser)
+    username = currentuser.ip_users[request.remote_addr]['username']
+    return render_template('index.html', username=username)
 
 
 @app.route('/favicon.ico')
