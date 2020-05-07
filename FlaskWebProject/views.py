@@ -15,14 +15,11 @@ salesorder.upload
     js get old itemnubmer + quantity if exists and subtract from GPQuantity
     js check for changes to quantity add new/ subtract old (probably replaces the add/subtract for getpalletdetails
     
-salesorder.delete
-    everything
-
 data / sql
     clean code to setup in new database
-
-admin
-    add admin functionality
+    
+testing:
+    everything, especially sales order
 
 '''
 

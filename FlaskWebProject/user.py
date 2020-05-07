@@ -12,12 +12,20 @@ class user:
 
 
     def login(self,userid,username,ip):
-        permissions = self.setPermissions(userid)
-        self.ip_users[ip] ={
+        if username == "admin":
+            self.ip_users[ip] = {
                 "username": username,
                 "userid": userid,
-                "permissions": permissions
-                }
+                "permissions": "full"
+            }
+        else :
+            permissions = self.setPermissions(userid)
+            self.ip_users[ip] ={
+                    "username": username,
+                    "userid": userid,
+                    "permissions": permissions
+                    }
+
 
 
     def setPermissions(self,userid):

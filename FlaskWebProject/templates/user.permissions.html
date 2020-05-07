@@ -11,11 +11,11 @@
     <label for="Users">Users</label>
     <select name="Users" method="GET" action="/">
         {% for user in users %}
-            {% if user['UserID']|int() == UserID|int() %}
+            {% if user['UserID']|int() == userid|int() %}
                 <option value="{{user['UserID']}}" selected>{{user['UserName']}}</option>
             {% endif %}
 
-            {% if user['UserID']|int() != UserID|int() %}
+            {% if user['UserID']|int() != userid|int() %}
                 <option value="{{user['UserID']}}">{{user['UserName']}}</option>
             {% endif %}
         {% endfor %}

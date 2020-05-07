@@ -1,6 +1,7 @@
 from FlaskWebProject.globals import *
 from flask import render_template, request, flash, url_for, redirect
 from FlaskWebProject import app
+from FlaskWebProject.settings import cfg
 from hashlib import md5
 import pandas as pd
 
@@ -28,15 +29,25 @@ def userLogin():
     if request.method == 'POST':
         username = str(request.form['User Name'])
         hashedPassword = md5(request.form['Password'].encode('utf-8', 'ignore')).hexdigest()
-        query = 'SELECT UserID FROM users.login WHERE UserName = ? AND HashedPassword = ?'
-        parameters = (username, hashedPassword)
-        loginResult = bdp_sqlserver.get_rows(query, parameters)
-        if len(loginResult) == 0:
-            flash('Username or password incorrect', 'error')
-        else:
-            userID = loginResult[0][0]
-            currentuser.login(userID, username,request.remote_addr)
-            flash('Successfully logged in as: ' + username, 'success')
+        if username == "admin":
+            if hashedPassword == cfg["AdminHashedPassword"]:
+                userID = 0
+                currentuser.login(userID, username, request.remote_addr)
+                flash('Successfully logged in as: ' + username, 'success')
+            else :
+                flash('Username or password incorrect', 'error')
+
+
+        else :
+            query = 'SELECT UserID FROM users.login WHERE UserName = ? AND HashedPassword = ?'
+            parameters = (username, hashedPassword)
+            loginResult = bdp_sqlserver.get_rows(query, parameters)
+            if len(loginResult) == 0:
+                flash('Username or password incorrect', 'error')
+            else:
+                userID = loginResult[0][0]
+                currentuser.login(userID, username,request.remote_addr)
+                flash('Successfully logged in as: ' + username, 'success')
     username = currentuser.ip_users[request.remote_addr]['username']
     return render_template('user.login.html', username=username)
 
@@ -44,14 +55,17 @@ def userLogin():
 def userCreate():
     if request.method == 'POST':
         username = str(request.form['User Name'])
-        hashedPassword = md5(request.form['Password'].encode('utf-8', 'ignore')).hexdigest()
-        query = 'EXEC [users].[CreateUserIfNotExists] ?, ?'
-        parameters = (username, hashedPassword)
-        result = bdp_sqlserver.get_rows(query, parameters)[0][0]
-        if result == 1:
-            flash('Successfully created user: ' + username, 'success')
-        else:
-            flash('User already exists: ' + username, 'error')
+        if username == 'admin':
+            flash('Protected username: ' + username, 'error')
+        else :
+            hashedPassword = md5(request.form['Password'].encode('utf-8', 'ignore')).hexdigest()
+            query = 'EXEC [users].[CreateUserIfNotExists] ?, ?'
+            parameters = (username, hashedPassword)
+            result = bdp_sqlserver.get_rows(query, parameters)[0][0]
+            if result == 1:
+                flash('Successfully created user: ' + username, 'success')
+            else:
+                flash('User already exists: ' + username, 'error')
     username = currentuser.ip_users[request.remote_addr]['username']
     return render_template('user.create.html', username=username)
 
@@ -66,7 +80,7 @@ def userDelete():
 
         flash('Users successfully deleted', "success")
 
-    users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [Users].[Login]")
+    users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [Users].[Login] WHERE UserName <> 'guest'")
     username = currentuser.ip_users[request.remote_addr]['username']
     return (render_template('user.delete.html', users=users, username=username))
 
