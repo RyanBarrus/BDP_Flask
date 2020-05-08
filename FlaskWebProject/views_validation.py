@@ -24,7 +24,8 @@ def validationPalletItem():
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
     PalletItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[PalletItemList]")
     Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in PalletItems]]
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('validation.palletitem.html', PalletItems=PalletItems, Differences=Differences, username=username))
 
 
@@ -48,7 +49,8 @@ def validationStirrerItem():
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
     StirrerItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
     Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in StirrerItems]]
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('validation.stirreritem.html', StirrerItems=StirrerItems, Differences=Differences, username=username))
 
 
@@ -75,5 +77,6 @@ def validationPalletCount():
         flash('Pallet Required Counts Updated', "success")
 
     PalletCounts = bdp_sqlserver.get_rows("SELECT ItemNumber,RequiredCount FROM data.ViewValidationPalletCounts")
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('validation.palletcount.html', PalletCounts=PalletCounts, username=username))

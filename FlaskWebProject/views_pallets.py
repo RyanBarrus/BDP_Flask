@@ -7,7 +7,8 @@ from datetime import datetime
 
 @app.route('/pallets/upload', methods=['GET', 'POST'])
 def palletsUpload():
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     if request.method == 'POST':
         ItemNumber = str(request.form['ItemNumber'])
         Pallet = str(request.form['PalletNumber'])
@@ -40,7 +41,8 @@ def palletsUpload():
 
 @app.route('/pallets/stirrer', methods=['GET', 'POST'])
 def palletsStirrer():
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     if request.method == 'POST':
         ItemNumber = request.form['ItemNumber']
         Pallet = request.form['PalletNumber']
@@ -74,5 +76,6 @@ def palletsDelete():
             flash('Successfully deleted pallet: ' + pallet, 'success')
 
     pallets = bdp_sqlserver.get_rows("SELECT Pallet FROM [data].[ViewPallets] ORDER BY Timestamp desc")
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('pallets.delete.html', pallets=pallets, palletDatas=palletDatas, username=username))

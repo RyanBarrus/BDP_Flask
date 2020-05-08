@@ -21,6 +21,9 @@ data / sql
     
 testing:
     everything, especially sales order
+    
+logout:
+    Page, calls guest()
 
 '''
 

@@ -1,18 +1,24 @@
 from FlaskWebProject.globals import *
-from flask import render_template, request, flash, url_for, redirect
+from flask import render_template, request, flash, url_for, redirect, make_response
 from FlaskWebProject import app
 from FlaskWebProject.settings import cfg
 from hashlib import md5
 import pandas as pd
-
+import uuid
 
 @app.before_request
 def before_request():
-    ip = request.remote_addr
-    if ip not in currentuser.ip_users:
-        currentuser.guest(ip)
-    username = currentuser.ip_users[ip]['username']
-    permissions = currentuser.ip_users[ip]['permissions']
+    SessionID = request.cookies.get("SessionID")
+    if SessionID not in currentuser.Sessions:
+        SessionID = str(uuid.uuid4())
+        currentuser.guest(SessionID)
+        username = currentuser.Sessions[SessionID]['username']
+        resp = make_response(render_template('user.login.html', username=username))
+        resp.set_cookie('SessionID', SessionID)
+        return resp
+
+    username = currentuser.Sessions[SessionID]['username']
+    permissions = currentuser.Sessions[SessionID]['permissions']
 
     if username != 'admin' \
             and request.path[0:7] != "/static" \
@@ -20,24 +26,24 @@ def before_request():
             and request.path[0:8] != "/favicon" \
             and request.path != "/" \
             and request.path != "/user/login" \
+            and request.path != "/user/logout" \
             and request.path not in permissions:
         flash(username + " doesn't have permission to access " + request.path, "error")
         return redirect(url_for('userLogin'))
 
 @app.route('/user/login', methods=['GET', 'POST'])
 def userLogin():
+    SessionID = request.cookies.get("SessionID")
     if request.method == 'POST':
         username = str(request.form['User Name'])
         hashedPassword = md5(request.form['Password'].encode('utf-8', 'ignore')).hexdigest()
         if username == "admin":
             if hashedPassword == cfg["AdminHashedPassword"]:
                 userID = 0
-                currentuser.login(userID, username, request.remote_addr)
+                currentuser.login(userID, username, SessionID)
                 flash('Successfully logged in as: ' + username, 'success')
             else :
                 flash('Username or password incorrect', 'error')
-
-
         else :
             query = 'SELECT UserID FROM users.login WHERE UserName = ? AND HashedPassword = ?'
             parameters = (username, hashedPassword)
@@ -46,9 +52,10 @@ def userLogin():
                 flash('Username or password incorrect', 'error')
             else:
                 userID = loginResult[0][0]
-                currentuser.login(userID, username,request.remote_addr)
+                currentuser.login(userID, username,SessionID)
                 flash('Successfully logged in as: ' + username, 'success')
-    username = currentuser.ip_users[request.remote_addr]['username']
+
+    username = currentuser.Sessions[SessionID]['username']
     return render_template('user.login.html', username=username)
 
 @app.route('/user/create', methods=['GET', 'POST'])
@@ -66,7 +73,9 @@ def userCreate():
                 flash('Successfully created user: ' + username, 'success')
             else:
                 flash('User already exists: ' + username, 'error')
-    username = currentuser.ip_users[request.remote_addr]['username']
+
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return render_template('user.create.html', username=username)
 
 @app.route('/user/delete', methods=['GET', 'POST'])
@@ -81,7 +90,8 @@ def userDelete():
         flash('Users successfully deleted', "success")
 
     users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [Users].[Login] WHERE UserName <> 'guest'")
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('user.delete.html', users=users, username=username))
 
 @app.route('/user/permissions', methods=['GET', 'POST'])
@@ -143,6 +153,19 @@ def userPermissions():
 
     users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [users].[login]")
     defaultPermissions = bdp_sqlserver.get_rows("EXEC [Users].DefaultPermissions")
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return render_template('user.permissions.html', users=users, permissionDatas=permissionDatas,
                            defaultPermissions=defaultPermissions, userid=userid, username=username)
+
+
+
+@app.route('/user/logout')
+def userLogout():
+    SessionID = request.cookies.get("SessionID")
+    currentuser.guest(SessionID)
+    username = currentuser.Sessions[SessionID]['username']
+    flash("Successfully logged out", "success")
+    return render_template('user.login.html', username=username)
+
+

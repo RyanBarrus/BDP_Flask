@@ -8,7 +8,8 @@ from ftplib import FTP
 
 @app.route('/salesorder/upload', methods=['GET', 'POST'])
 def salesorderUpload():
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     if request.method == 'POST':
         parsed = variabledecode.variable_decode(request.form, dict_char='_')
         SONumber = parsed['Available']
@@ -61,7 +62,8 @@ def salesorderDelete():
             flash('Successfully deleted order: ' + SalesOrderNumber, 'success')
 
     orders = bdp_sqlserver.get_rows("SELECT SalesOrderNumber FROM [data].[ViewShipments] ORDER BY Timestamp Desc")
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('salesorder.delete.html', orders=orders, orderDatas=orderDatas, username=username))
 
 
@@ -108,7 +110,8 @@ def salesorderWrin():
     Availables = bhprd_sqlserver.get_rows(query)
     query = "SELECT ITEMNMBR AS ItemNumber FROM dbo.a_ITEM_WRIN_MAP"
     Existings = bhprd_sqlserver.get_rows(query)
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('salesorder.wrinlist.html', Availables=Availables, Existings=Existings, ExistingData=ExistingData, username=username))
 
 @app.route('/salesorder/dclist', methods=['GET', 'POST'])
@@ -154,7 +157,8 @@ def salesorderDC():
     Availables = bhprd_sqlserver.get_rows(query)
     query = "SELECT [Customer Number] AS CustomerNumber FROM dbo.a_DistributionCenters"
     Existings = bhprd_sqlserver.get_rows(query)
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return (render_template('salesorder.dclist.html', Availables=Availables, Existings=Existings,
                             ExistingData=ExistingData, username=username))
 
