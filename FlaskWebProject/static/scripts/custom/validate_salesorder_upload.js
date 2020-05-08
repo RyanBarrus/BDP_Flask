@@ -49,62 +49,72 @@ function getpalletdetails(input) {
         "Pallet": pallet
     }
 
-    fetch(`${window.origin}/fetch/palletdetails`, {
-          method: "POST",
-          credentials: "include",
-          body: JSON.stringify(jsonToServer),
-          cache: "no-cache",
-          headers: new Headers({
-            "content-type": "application/json",
-            "X-CSRFToken": csrf_token
-          })
-        })
-          .then(function (response) {
-            if (response.status !== 200) {
-              console.log(`Looks like there was a problem. Status code: ${response.status}`);
-              return;
-            }
-            response.json().then(function (data) {
+    if (pallet == "") {
+        document.getElementsByName(row_pallet)[0].value = ""
+        document.getElementsByName(row_itemnumber)[0].innerHTML = ""
+        document.getElementsByName(row_quantity)[0].value = ""
+    } else {
+        fetch(`${window.origin}/fetch/palletdetails`, {
+              method: "POST",
+              credentials: "include",
+              body: JSON.stringify(jsonToServer),
+              cache: "no-cache",
+              headers: new Headers({
+                "content-type": "application/json",
+                "X-CSRFToken": csrf_token
+              })
+            })
+              .then(function (response) {
+                if (response.status !== 200) {
+                  console.log(`Looks like there was a problem. Status code: ${response.status}`);
+                  return;
+                }
+                response.json().then(function (data) {
 
-                if(data["UsedPallet"] != "") {
-                    toastr.error("This pallet is already assigned to Sales Order: " + data["UsedPallet"]);
-                    input.value = ""
-                } else if ("PalletDetails" in data) {
+                    if(data["UsedPallet"] != "") {
+                        toastr.error("This pallet is already assigned to Sales Order: " + data["UsedPallet"]);
+                        input.value = ""
+                    } else if ("PalletDetails" in data) {
 
-                    GPCounts = document.getElementsByName("GP Quantities")
+                        GPCounts = document.getElementsByName("GP Quantities")
 
-                    var GPItems = []
-                    for (var GPRow of GPCounts) {
-                        var id = GPRow.id
-                        var GPItemNumber = id.substr(id.indexOf('_') + 1)
+                        var GPItems = []
+                        for (var GPRow of GPCounts) {
+                            var id = GPRow.id
+                            var GPItemNumber = id.substr(id.indexOf('_') + 1)
 
-                        GPItems.push(GPItemNumber)
-                    }
+                            GPItems.push(GPItemNumber)
+                        }
 
-                    var PalletItem = data.PalletDetails.ItemNumber
+                        var PalletItem = data.PalletDetails.ItemNumber
 
-                    if (GPItems.indexOf(PalletItem) > 0) {
-                        document.getElementsByName(row_itemnumber)[0].innerHTML = PalletItem
-                        document.getElementsByName(row_quantity)[0].value = data.PalletDetails.Quantity
-                        document.getElementsByName(nextrow_pallet)[0].focus()
-                        reconcileremaining()
+                        if (GPItems.indexOf(PalletItem) > 0) {
+                            document.getElementsByName(row_itemnumber)[0].innerHTML = PalletItem
+                            document.getElementsByName(row_quantity)[0].value = data.PalletDetails.Quantity
+                            document.getElementsByName(nextrow_pallet)[0].focus()
+                            reconcileremaining()
+                        } else {
+                            document.getElementsByName(row_pallet)[0].value = ""
+                            document.getElementsByName(row_itemnumber)[0].innerHTML = ""
+                            document.getElementsByName(row_pallet)[0].focus()
+                            document.getElementsByName(row_quantity)[0].value = ""
+                            toastr.error(pallet + " contains: " + PalletItem + " that item isn't used on the order");
+                        }
+
                     } else {
                         document.getElementsByName(row_pallet)[0].value = ""
+                        document.getElementsByName(row_itemnumber)[0].innerHTML = ""
+                        document.getElementsByName(row_quantity)[0].value = ""
                         document.getElementsByName(row_pallet)[0].focus()
-                        toastr.error(pallet + " contains: " + PalletItem + " that item isn't used on the order");
+                        toastr.error(pallet + " doesn't have any cases assigned to it");
                     }
 
-                } else {
-                    document.getElementsByName(row_pallet)[0].value = ""
-                    document.getElementsByName(row_pallet)[0].focus()
-                    toastr.error(pallet + " doesn't have any cases assigned to it");
-                }
-
-            });
-          })
-          .catch(function (error) {
-            console.log("Fetch error: " + error);
-          });
+                });
+              })
+              .catch(function (error) {
+                console.log("Fetch error: " + error);
+              });
+    }
 }
 
 
