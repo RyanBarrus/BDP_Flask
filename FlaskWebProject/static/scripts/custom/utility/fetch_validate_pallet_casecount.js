@@ -5,7 +5,7 @@ function fetch_validate_pallet_casecount(form,jsonToServer) {
     var PalletNumber = jsonToServer['PalletNumber']
     var CaseCount = jsonToServer['CaseCount']
 
-    fetch(`${window.origin}/fetch/palletcount`, {
+    fetch(`${window.origin}/fetch/validatepallet`, {
           method: "POST",
           credentials: "include",
           body: JSON.stringify(jsonToServer),

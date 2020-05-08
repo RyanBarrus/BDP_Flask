@@ -4,17 +4,45 @@ from FlaskWebProject import app
 
 
 
-
-@app.route("/fetch/palletcount", methods=["POST"])
-def fetchPalletCount():
-    req = request.get_json()
+def lookupPalletCount(ItemNumber):
     query = "SELECT RequiredCount FROM [validation].[PalletCount] WHERE ItemNumber = ?"
-    parameters = req['ItemNumber']
+    parameters = ItemNumber
     requiredCount = bdp_sqlserver.get_rows(query, parameters)[0][0]
+    return(requiredCount)
 
+
+def lookupPalletExisting(ItemNumber):
     query = "SELECT COUNT(*) AS PalletExistingCount FROM [data].[pallets] WHERE Pallet = ?"
-    parameters = req['PalletNumber']
+    parameters = ItemNumber
     PalletExistingCount = bdp_sqlserver.get_rows(query, parameters)[0][0]
+    return(PalletExistingCount)
+
+
+
+
+
+@app.route("/fetch/lookuppalletcount", methods=["POST"])
+def fetchLookupPalletCount():
+    req = request.get_json()
+    requiredCount = lookupPalletCount(req['ItemNumber'])
+
+    return make_response(jsonify({"requiredCount": requiredCount}), 200)
+
+
+@app.route("/fetch/lookuppalletexisting", methods=["POST"])
+def fetchLookupPalletExisting():
+    req = request.get_json()
+    PalletExistingCount = lookupPalletCount(req['ItemNumber'])
+
+    return make_response(jsonify({"PalletExistingCount": PalletExistingCount}), 200)
+
+
+@app.route("/fetch/validatepallet", methods=["POST"])
+def fetchValidatePallet():
+    req = request.get_json()
+    ItemNumber = req['ItemNumber']
+    requiredCount = lookupPalletCount(ItemNumber)
+    PalletExistingCount = lookupPalletExisting(ItemNumber)
 
     ExistingPalletAssignment = {}
     if 'CaseCodes' in req:

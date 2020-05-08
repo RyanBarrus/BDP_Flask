@@ -11,9 +11,7 @@ from FlaskWebProject.views_fetch import *
 '''
 Todo:
 
-salesorder.upload
-    js get old itemnubmer + quantity if exists and subtract from GPQuantity
-    js check for changes to quantity add new/ subtract old (probably replaces the add/subtract for getpalletdetails
+ftp: 
     finish ftp / sendToHavi funciton
       
 data / sql
@@ -22,19 +20,7 @@ data / sql
 testing:
     everything, especially sales order
     
-pallets-auto:
-    post for update
-    validation get/post
-    
 '''
-
-@app.route('/')
-@app.route('/home')
-def home():
-    SessionID = request.cookies.get("SessionID")
-    username = currentuser.Sessions[SessionID]['username']
-    return render_template('index.html', username=username)
-
 
 @app.route('/favicon.ico')
 def favicon():

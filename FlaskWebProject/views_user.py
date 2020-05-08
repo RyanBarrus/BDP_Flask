@@ -31,6 +31,7 @@ def before_request():
         flash(username + " doesn't have permission to access " + request.path, "error")
         return redirect(url_for('userLogin'))
 
+@app.route('/')
 @app.route('/user/login', methods=['GET', 'POST'])
 def userLogin():
     SessionID = request.cookies.get("SessionID")

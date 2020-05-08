@@ -394,7 +394,8 @@ END
 
 
 GO
-CREATE PROCEDURE [data].[FirstLastInsert]
+
+CREATE PROCEDURE [data].[RangeInsert]
 @ItemNumber VARCHAR(35),
 @Pallet CHAR(20),
 @Timestamp DATETIME2,
@@ -414,6 +415,40 @@ BEGIN
         INSERT INTO data.pallets
         VALUES
         (@ItemNumber, 'Range' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Timestamp, @UploadUsername)
+        SET @CURRENT += 1
+    END
+
+END
+
+
+CREATE SEQUENCE data.SequenceAutoInsert
+	AS INT
+	START WITH 1
+	INCREMENT BY 1
+
+GO
+CREATE PROCEDURE [data].[AutoInsert]
+@ItemNumber VARCHAR(35),
+@Pallet CHAR(20),
+@Timestamp DATETIME2,
+@UploadUsername VARCHAR(30),
+@InsertQuantity INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @NexutAutoValue INT = NEXT VALUE FOR data.SequenceAutoInsert
+	DECLARE @CURRENT INT = @NexutAutoValue
+	DECLARE @EndCase INT = @Current + @InsertQuantity - 1
+
+
+    SET @CURRENT = @NexutAutoValue
+
+    WHILE @CURRENT <= @EndCase
+    BEGIN
+        INSERT INTO data.pallets
+        VALUES
+        (@ItemNumber, 'Auto' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Timestamp, @UploadUsername)
         SET @CURRENT += 1
     END
 

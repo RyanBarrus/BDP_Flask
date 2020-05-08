@@ -17,7 +17,7 @@
 
     <div id="OrderDetails"></div>
 
-    <table id="PalletHolders">
+    <table border="1" id="PalletHolders">
         <tr>
             <th style="width: 45%">Pallet</th>
             <th style="width: 45%">ItemNumber</th>
@@ -26,8 +26,8 @@
             {% for PalletHolder in PalletHolders %}
         <tr>
             <td style="width: 45%"><input style="width: 100%;" type="text" class="PalletsJS" onchange="getpalletdetails(this)" pattern="0010895611002\d{7}" name="{{PalletHolder['Pallet']}}"></td>
-            <td style="width: 45%" name="{{PalletHolder['ItemNumber']}}"></td>
-            <td style="width: 40px"><input style="width: 100%;" type="number" name="{{PalletHolder['Quantity']}}"></td>
+            <td style="width: 45%" class="ItemNumbersJS" name="{{PalletHolder['ItemNumber']}}"></td>
+            <td style="width: 40px"><input style="width: 100%;" type="number" class="QuantitiesJS" onchange="reconcileremaining()" name="{{PalletHolder['Quantity']}}"></td>
         </tr>
             {% endfor %}
     </table>

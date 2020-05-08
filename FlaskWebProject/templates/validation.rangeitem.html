@@ -26,7 +26,7 @@
     <label for="MultiExistingItems">Remove from existing range assign pallet item list</label>
     <select multiple id="MultiExistingItems" name="MultiExistingItems" method="GET" action="/" size="15">
         <option value="{{RangeItems[0]['ItemNumber']}}" selected>{{RangeItems[0]['ItemNumber']}}</option>
-        {% for AutoItem in AutoItems[1:] %}
+        {% for RangeItem in RangeItems[1:] %}
         <option value="{{RangeItem['ItemNumber']}}">{{RangeItem['ItemNumber']}}</option>
         {% endfor %}
     </select>

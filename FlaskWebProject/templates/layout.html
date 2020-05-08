@@ -37,7 +37,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ url_for('salesorderUpload') }}">Upload</a></li>
                             <li><a href="{{ url_for('salesorderDelete') }}">View & Delete</a></li>
-                            <li class="divider"></li>
+                            <li class="divider"></li>\
                             <li><a href="{{ url_for('salesorderWrin') }}">Manage WRIN List</a></li>
                             <li><a href="{{ url_for('salesorderDC') }}">Manage DC List</a></li>
                         </ul>
@@ -45,9 +45,11 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Validation<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('validationPalletItem') }}">Pallet Item list</a></li>
-                            <li><a href="{{ url_for('validationRangeItem') }}">Stirrer Item list</a></li>
-                            <li><a href="{{ url_for('validationPalletCount') }}">Pallet Required Counts</a></li>
+                            <li><a href="{{ url_for('validationPalletItem') }}">Manual Assign Item list</a></li>
+                            <li><a href="{{ url_for('validationRangeItem') }}">Range Assign Item List</a></li>
+                            <li><a href="{{ url_for('validationAutoItem') }}">Auto Assign Item List</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ url_for('validationPalletCount') }}">Required Case Counts</a></li>
                         </ul>
                     </li>
                 </ul>

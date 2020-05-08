@@ -50,7 +50,7 @@ def palletsRange():
         UploadUsername = username
         StartCase = request.form['StartCase']
         EndCase = request.form['EndCase']
-        query = "EXEC [data].[FirstLastInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @StartCase =?, @EndCase =?"
+        query = "EXEC [data].[RangeInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @StartCase =?, @EndCase =?"
         parameters = (ItemNumber,Pallet,Timestamp,UploadUsername,StartCase,EndCase)
         bdp_sqlserver.sql_execute(query,parameters)
         flash('Upload successful', "success")
@@ -59,11 +59,19 @@ def palletsRange():
     return (render_template('pallets.range.html', ItemList=ItemList, username=username))
 
 @app.route('/pallets/auto', methods=['GET', 'POST'])
-def palletsRange():
+def palletsAuto():
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
     if request.method == 'POST':
-        flash('not yet implemented', "error")
+        ItemNumber = request.form['ItemNumber']
+        Pallet = request.form['PalletNumber']
+        Timestamp = str(datetime.now())
+        UploadUsername = username
+        InsertQuantity = request.form['InsertQuantity']
+        query = "EXEC [data].[AutoInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @InsertQuantity = ?"
+        parameters = (ItemNumber, Pallet, Timestamp, UploadUsername, InsertQuantity)
+        bdp_sqlserver.sql_execute(query, parameters)
+        flash('Upload successful', "success")
 
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[AutoItemList]")
     return (render_template('pallets.auto.html', ItemList=ItemList, username=username))

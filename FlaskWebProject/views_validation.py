@@ -30,7 +30,7 @@ def validationPalletItem():
 
 
 @app.route('/validation/rangeitem', methods=['GET', 'POST'])
-def validationStirrerItem():
+def validationRangeItem():
     if request.method == 'POST':
         if request.form['submit_button'] == "Add":
             RangeItem = request.form['AddItem']
@@ -58,9 +58,17 @@ def validationStirrerItem():
 def validationAutoItem():
     if request.method == 'POST':
         if request.form['submit_button'] == "Add":
-            flash('Not Yet Implemented', "error")
+            AutoItem = request.form['AddItem']
+            query = "INSERT INTO [validation].[AutoItemList] (ItemNumber) VALUES (?)"
+            parameters = AutoItem
+            bdp_sqlserver.sql_execute(query, parameters)
+            flash('Item successfully added: ' + AutoItem, "success")
         if request.form['submit_button'] == "Remove":
-            flash('Not Yet Implemented', "error")
+            for selected in request.form.getlist('MultiExistingItems'):
+                query = "DELETE FROM [validation].[AutoItemList] WHERE ItemNumber = ?"
+                parameters = selected
+                bdp_sqlserver.sql_execute(query, parameters)
+                flash('Item successfully deleted: ' + selected, "success")
 
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
     AutoItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[AutoItemList]")
