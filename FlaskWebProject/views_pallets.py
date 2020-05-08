@@ -40,7 +40,7 @@ def palletsUpload():
 
 
 @app.route('/pallets/range', methods=['GET', 'POST'])
-def palletsStirrer():
+def palletsRange():
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
     if request.method == 'POST':
@@ -57,6 +57,16 @@ def palletsStirrer():
 
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[RangeItemList]")
     return (render_template('pallets.range.html', ItemList=ItemList, username=username))
+
+@app.route('/pallets/auto', methods=['GET', 'POST'])
+def palletsRange():
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
+    if request.method == 'POST':
+        flash('not yet implemented', "error")
+
+    ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[AutoItemList]")
+    return (render_template('pallets.auto.html', ItemList=ItemList, username=username))
 
 
 @app.route('/pallets/delete', methods=['GET', 'POST'])

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>Pallets - Auto Assign</h2>
+
+<form action="/pallets/auto" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="PalletNumber">Pallet Number</label>
+    <input type="text" name="PalletNumber" id="PalletNumber" pattern="0010895611002\d{7}" required />
+
+    <label for="ItemNumber">ItemNumber</label>
+    <select id="ItemNumber" name="ItemNumber" method="GET" action="/">
+        <option value="{{ItemList[0]['ItemNumber']}}" selected>{{ItemList[0]['ItemNumber']}}</option>
+        {% for Item in ItemList[1:] %}
+        <option value="{{Item['ItemNumber']}}">{{Item['ItemNumber']}}</option>
+        {% endfor %}
+    </select>
+
+    <button style="display: none;" type="submit" id="submit-button">Not Shown</button>
+    <button class="btn btn-primary" onClick="validate(this.form)">Upload</button>
+</form>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/static/scripts/custom/Enter_NoSubmit.js"></script>
+<script src="/static/scripts/custom/validate_pallets_auto.js"></script>
+{% endblock %}
+
+
+
+
+

@@ -22,6 +22,10 @@ data / sql
 testing:
     everything, especially sales order
     
+pallets-auto:
+    post for update
+    validation get/post
+    
 '''
 
 @app.route('/')

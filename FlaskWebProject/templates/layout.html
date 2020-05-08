@@ -26,8 +26,9 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pallets<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('palletsUpload') }}">Upload</a></li>
-                            <li><a href="{{ url_for('palletsRange') }}">Stirrer Assign</a></li>
+                            <li><a href="{{ url_for('palletsUpload') }}">Upload - Manual</a></li>
+                            <li><a href="{{ url_for('palletsRange') }}">Upload - Range Assign</a></li>
+                            <li><a href="{{ url_for('palletsAuto') }}">Upload - Auto Assign</a></li>
                             <li><a href="{{ url_for('palletsDelete') }}">View & Delete</a></li>
                         </ul>
                     </li>

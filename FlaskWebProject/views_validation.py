@@ -47,11 +47,28 @@ def validationStirrerItem():
                 flash('Item successfully deleted: ' + selected, "success")
 
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
-    RangeItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
+    RangeItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[RangeItemList]")
     Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in RangeItems]]
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
-    return (render_template('validation.rangeitem.html', StirrerItems=RangeItems, Differences=Differences, username=username))
+    return (render_template('validation.rangeitem.html', RangeItems=RangeItems, Differences=Differences, username=username))
+
+
+@app.route('/validation/autoitem', methods=['GET', 'POST'])
+def validationAutoItem():
+    if request.method == 'POST':
+        if request.form['submit_button'] == "Add":
+            flash('Not Yet Implemented', "error")
+        if request.form['submit_button'] == "Remove":
+            flash('Not Yet Implemented', "error")
+
+    Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
+    AutoItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[AutoItemList]")
+    Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in AutoItems]]
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
+    return (render_template('validation.autoitem.html', AutoItems=AutoItems, Differences=Differences,
+                            username=username))
 
 
 @app.route('/validation/palletcount', methods=['GET', 'POST'])

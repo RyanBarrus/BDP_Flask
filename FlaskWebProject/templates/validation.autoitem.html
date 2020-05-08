@@ -2,13 +2,13 @@
 
 {% block content %}
 
-<h2>Validation - Range Item List</h2>
+<h2>Validation - Auto Item List</h2>
 
 
-<form action="/validation/rangeitem" method="POST">
+<form action="/validation/autoitem" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
-    <label for="AddItem">Add to range assign pallet item list</label>
+    <label for="AddItem">Add to auto assign pallet item list</label>
      <select name="AddItem" id="AddItem">
         <option value="{{Differences[0]['ItemNumber']}}" selected>{{Differences[0]['ItemNumber']}}</option>
         {% for Difference in Differences[1:] %}
@@ -20,14 +20,14 @@
 
 </form>
 
-<form action="/validation/rangeitem" method="POST">
+<form action="/validation/autoitem" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
-    <label for="MultiExistingItems">Remove from existing range assign pallet item list</label>
+    <label for="MultiExistingItems">Remove from existing auto assign pallet item list</label>
     <select multiple id="MultiExistingItems" name="MultiExistingItems" method="GET" action="/" size="15">
-        <option value="{{RangeItems[0]['ItemNumber']}}" selected>{{RangeItems[0]['ItemNumber']}}</option>
+        <option value="{{AutoItems[0]['ItemNumber']}}" selected>{{AutoItems[0]['ItemNumber']}}</option>
         {% for AutoItem in AutoItems[1:] %}
-        <option value="{{RangeItem['ItemNumber']}}">{{RangeItem['ItemNumber']}}</option>
+        <option value="{{AutoItem['ItemNumber']}}">{{AutoItem['ItemNumber']}}</option>
         {% endfor %}
     </select>
 

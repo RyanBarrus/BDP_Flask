@@ -4,11 +4,8 @@
     <list default="true" id="4dfffda3-86ee-42fd-af82-62add0245dec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/misc/SQLScripts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/misc/SQLScripts.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_stirrer.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_range.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.stirrer.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.range.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/validation.stirreritem.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/validation.rangeitem.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/validation.rangeitem.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/validation.rangeitem.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_pallets.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_pallets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_validation.py" afterDir="false" />
@@ -41,13 +38,13 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/FlaskWebProject/templates" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\scripts\custom" />
       <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\templates" />
+      <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\scripts\custom" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\scripts\custom" />

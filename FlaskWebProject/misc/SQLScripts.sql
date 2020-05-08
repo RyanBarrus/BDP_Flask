@@ -75,6 +75,11 @@ CREATE TABLE [validation].[RangeItemList](
 	[ItemNumber] [VARCHAR](999) NULL
 ) 
 
+CREATE TABLE [validation].[AutoItemList](
+	[AutoItemListID] INT PRIMARY KEY IDENTITY(1,1),
+	[ItemNumber] [VARCHAR](999) NULL
+) 
+
 CREATE TABLE [validation].[PalletCount] (
 	[ItemNumber] VARCHAR(999),
 	[RequiredCount] INT
@@ -265,27 +270,29 @@ GROUP BY SalesOrderNumber
 
 
 
+
 INSERT INTO users.Permissions VALUES
 ('/user/create'),
 ('/user/delete'),
 ('/user/permissions'),
 ('/pallets/upload'),
-('/pallets/stirrer'),
+('/pallets/range'),
+('/pallets/auto'),
 ('/pallets/delete'),
 ('/salesorder/upload'),
 ('/salesorder/delete'),
 ('/validation/palletitem'),
-('/validation/stirreritem'),
+('/validation/autoitem'),
+('/validation/rangeitem'),
 ('/validation/palletcount')
+
+
 
 
 
 INSERT INTO validation.PalletItemList VALUES
 ('021-FG 10.25 BLUE SPOON STRAW'),
-('021-FG 2PC FORK/KNIFE KIT'),
-('021-FG 9" SPOON WHITE'),
 ('021-FG BIOSTRAW 7200 GREEN'),
-('021-FG SOUP SPOON'),
 ('021-FG TEAL AMERCARE STRAW'),
 ('021-FG-10.25 SHEETZ RED'),
 ('021-FG-7.75 WHITE W/RED STRAW'),
@@ -295,11 +302,6 @@ INSERT INTO validation.PalletItemList VALUES
 ('021-FG-RED MILKSHK STRAW 7.75"'),
 ('021-FG-RMHC_MCD'),
 ('021-FG-WENDY''S 9" STRAW - RED'),
-('021-GLOVES L 07606-021'),
-('021-GLOVES M 07605-021'),
-('021-GLOVES S 07604-018'),
-('021-GLOVES XL 07607-012'),
-('021-GLOVES XXL'),
 ('021-WRAPPED DQ STRAWS'),
 ('021-WRAPPEDJIBSTRAWS'),
 ('021-WRAPPEDJUMBOCSTRAW'),
@@ -311,6 +313,17 @@ INSERT INTO validation.RangeItemList VALUES
 ('021-FG-MCDSTIRRER'),
 ('021-JIB COFFEE STIRRER')
 
+
+INSERT INTO validation.AutoItemList VALUES
+('021-GLOVES L 07606-021'),
+('021-GLOVES M 07605-021'),
+('021-GLOVES S 07604-018'),
+('021-GLOVES XL 07607-012'),
+('021-GLOVES XXL'),
+('021-FG SOUP SPOON'),
+('021-FG 2PC FORK/KNIFE KIT'),
+('021-FG 9" SPOON WHITE')
+
 GO
 CREATE VIEW data.ViewValidationPalletCounts AS
 SELECT lists.ItemNumber,
@@ -320,6 +333,8 @@ FROM (
 	SELECT ItemNumber FROM [validation].[PalletItemList]
 	UNION
 	SELECT ItemNumber FROM [validation].[RangeItemList]
+	UNION
+	SELECT ItemNumber FROM [validation].[AutoItemList]
 ) lists
 
 LEFT OUTER JOIN [validation].[PalletCount] pc
@@ -407,22 +422,12 @@ END
 
 
 
+
+
 SELECT TOP 100 * 
 
 FROM users.permissions
 
-
-
-SELECT TOP 100 * 
-
-FROM users.PermissionsAssignment
-
-
-
-INSERT INTO  users.PermissionsAssignment VALUES
-(1,3)
-
-SELECT [UserID], [UserName] FROM [users].[login]
 
 
 
