@@ -39,7 +39,7 @@ def palletsUpload():
     return (render_template('pallets.upload.html', ItemList=ItemList, cases=cases, username=username))
 
 
-@app.route('/pallets/stirrer', methods=['GET', 'POST'])
+@app.route('/pallets/range', methods=['GET', 'POST'])
 def palletsStirrer():
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
@@ -55,8 +55,8 @@ def palletsStirrer():
         bdp_sqlserver.sql_execute(query,parameters)
         flash('Upload successful', "success")
 
-    ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
-    return (render_template('pallets.stirrer.html', ItemList=ItemList, username=username))
+    ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[RangeItemList]")
+    return (render_template('pallets.range.html', ItemList=ItemList, username=username))
 
 
 @app.route('/pallets/delete', methods=['GET', 'POST'])

@@ -29,29 +29,29 @@ def validationPalletItem():
     return (render_template('validation.palletitem.html', PalletItems=PalletItems, Differences=Differences, username=username))
 
 
-@app.route('/validation/stirreritem', methods=['GET', 'POST'])
+@app.route('/validation/rangeitem', methods=['GET', 'POST'])
 def validationStirrerItem():
     if request.method == 'POST':
         if request.form['submit_button'] == "Add":
-            StirrerItem = request.form['AddItem']
-            query = "INSERT INTO [validation].[StirrerItemList] (ItemNumber) VALUES (?)"
-            parameters = StirrerItem
+            RangeItem = request.form['AddItem']
+            query = "INSERT INTO [validation].[RangeItemList] (ItemNumber) VALUES (?)"
+            parameters = RangeItem
             bdp_sqlserver.sql_execute(query, parameters)
-            flash('Item successfully added: ' + StirrerItem, "success")
+            flash('Item successfully added: ' + RangeItem, "success")
 
         if request.form['submit_button'] == "Remove":
             for selected in request.form.getlist('MultiExistingItems'):
-                query = "DELETE FROM [validation].[StirrerItemList] WHERE ItemNumber = ?"
+                query = "DELETE FROM [validation].[RangeItemList] WHERE ItemNumber = ?"
                 parameters = selected
                 bdp_sqlserver.sql_execute(query, parameters)
                 flash('Item successfully deleted: ' + selected, "success")
 
     Availables = bhprd_sqlserver.get_rows("SELECT ITEMNMBR AS ItemNumber FROM IV00101")
-    StirrerItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
-    Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in StirrerItems]]
+    RangeItems = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[StirrerItemList]")
+    Differences = [{'ItemNumber': x} for x in [x[0] for x in Availables] if x not in [x[0] for x in RangeItems]]
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
-    return (render_template('validation.stirreritem.html', StirrerItems=StirrerItems, Differences=Differences, username=username))
+    return (render_template('validation.rangeitem.html', StirrerItems=RangeItems, Differences=Differences, username=username))
 
 
 @app.route('/validation/palletcount', methods=['GET', 'POST'])

@@ -22,15 +22,13 @@ data / sql
 testing:
     everything, especially sales order
     
-logout:
-    Page, calls guest()
-
 '''
 
 @app.route('/')
 @app.route('/home')
 def home():
-    username = currentuser.ip_users[request.remote_addr]['username']
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
     return render_template('index.html', username=username)
 
 

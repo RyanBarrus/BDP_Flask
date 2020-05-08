@@ -69,8 +69,9 @@ CREATE TABLE [validation].[PalletItemList](
 	[ItemNumber] [VARCHAR](999) NULL
 ) 
 
-CREATE TABLE [validation].[StirrerItemList](
-	[StirrerItemListID] INT PRIMARY KEY IDENTITY(1,1),
+
+CREATE TABLE [validation].[RangeItemList](
+	[RangeItemListID] INT PRIMARY KEY IDENTITY(1,1),
 	[ItemNumber] [VARCHAR](999) NULL
 ) 
 
@@ -253,6 +254,16 @@ FROM [data].[pallets]
 
 GROUP BY Pallet
 
+GO
+CREATE VIEW [data].[ViewShipments] AS
+SELECT SalesOrderNumber, MAX(Timestamp) AS timestamp
+
+FROM [data].[shipments]
+
+GROUP BY SalesOrderNumber
+
+
+
 
 INSERT INTO users.Permissions VALUES
 ('/user/create'),
@@ -296,7 +307,7 @@ INSERT INTO validation.PalletItemList VALUES
 ('021-WRAPPEDRALLYSTRAW')
 
 
-INSERT INTO validation.StirrerItemList VALUES
+INSERT INTO validation.RangeItemList VALUES
 ('021-FG-MCDSTIRRER'),
 ('021-JIB COFFEE STIRRER')
 
@@ -308,7 +319,7 @@ ISNULL(pc.RequiredCount,0) AS RequiredCount
 FROM (
 	SELECT ItemNumber FROM [validation].[PalletItemList]
 	UNION
-	SELECT ItemNumber FROM [validation].[StirrerItemList]
+	SELECT ItemNumber FROM [validation].[RangeItemList]
 ) lists
 
 LEFT OUTER JOIN [validation].[PalletCount] pc
@@ -387,7 +398,7 @@ BEGIN
     BEGIN
         INSERT INTO data.pallets
         VALUES
-        (@ItemNumber, 'Stir' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Timestamp, @UploadUsername)
+        (@ItemNumber, 'Range' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Timestamp, @UploadUsername)
         SET @CURRENT += 1
     END
 
@@ -412,3 +423,6 @@ INSERT INTO  users.PermissionsAssignment VALUES
 (1,3)
 
 SELECT [UserID], [UserName] FROM [users].[login]
+
+
+

@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h2>Pallets - Stirrer Assign</h2>
+<h2>Pallets - Range Assign</h2>
 
-<form action="/pallets/stirrer" method="POST">
+<form action="/pallets/range" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
     <label for="PalletNumber">Pallet Number</label>
@@ -34,7 +34,7 @@
 
 {% block scripts %}
 <script src="/static/scripts/custom/Enter_NoSubmit.js"></script>
-<script src="/static/scripts/custom/validate_pallets_stirrer.js"></script>
+<script src="/static/scripts/custom/validate_pallets_range.js"></script>
 <script src="/static/scripts/custom/utility/fetch_validate_pallet_casecount.js"></script>
 {% endblock %}
 
