@@ -175,3 +175,15 @@ def userLogout():
     return render_template('user.login.html', username=username)
 
 
+
+@app.route('/user/autologoutduration', methods=['GET', 'POST'])
+def autoLogoutDuration():
+    DurationMinutes = currentuser.autologout
+    if request.method == 'POST':
+        DurationMinutes = request.form['DurationMinutes']
+        currentuser.setAutoLogout(int(DurationMinutes))
+        flash('Success, new auto logout duration: ' + DurationMinutes + " minutes", "success")
+
+    SessionID = request.cookies.get("SessionID")
+    username = currentuser.Sessions[SessionID]['username']
+    return render_template('user.autologoutduration.html', DurationMinutes=DurationMinutes, username=username)

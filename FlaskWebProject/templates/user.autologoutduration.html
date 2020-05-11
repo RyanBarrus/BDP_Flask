@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>User Management - Auto Logout Duration</h2>
+
+
+
+<form action="/user/autologoutduration" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <label for="DurationMinutes">Auto Logout Duration - Minutes</label>
+    <input type="number" name="DurationMinutes" id="DurationMinutes" value="{{DurationMinutes}}" required/>
+
+    <button class="btn btn-primary" type="submit">Update</button>
+</form>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

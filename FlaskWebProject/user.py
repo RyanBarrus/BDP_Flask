@@ -4,7 +4,8 @@ import threading, time
 class user:
     def __init__(self,bdp_sqlserver):
         self.Sessions = {}
-        self.autologout = 1
+        self.autologout = 60
+        self.checkactivity = 300
         self.bdp_sqlserver = bdp_sqlserver
         threading.Thread(target=self.logoutInactive).start()
 
@@ -47,10 +48,10 @@ class user:
 
     def logoutInactive(self):
         while (True):
-            time.sleep(300)
+            time.sleep(self.checkactivity)
             for Session in self.Sessions:
                 duration = datetime.now() - self.Sessions[Session]['lastactivity']
-                if duration > timedelta(minutes=60) and self.Sessions[Session]['userid'] != 1:
+                if duration > timedelta(minutes=self.autologout) and self.Sessions[Session]['userid'] != 1:
                     self.guest(Session)
 
 
