@@ -102,10 +102,12 @@ def palletsAuto():
 @app.route('/pallets/delete', methods=['GET', 'POST'])
 def palletsDelete():
     palletDatas = None
+    Selected = ""
     if request.method == 'POST':
         if request.form['submit_button'] == "View":
             query = "SELECT * FROM [data].[pallets] WHERE Pallet = ?"
-            parameters = request.form['Pallet']
+            Selected = request.form['Pallet']
+            parameters = Selected
             palletDatas = bdp_sqlserver.get_rows(query, parameters)
         if request.form['submit_button'] == "Delete":
             pallet = request.form['Pallet']
@@ -115,7 +117,7 @@ def palletsDelete():
             bdp_sqlserver.sql_execute(query, parameters)
             flash('Successfully deleted pallet: ' + pallet, 'success')
 
-    pallets = bdp_sqlserver.get_rows("SELECT Pallet FROM [data].[ViewPallets] ORDER BY Timestamp desc")
+    pallets = bdp_sqlserver.get_rows("SELECT Pallet, ROW_NUMBER() OVER (ORDER BY Timestamp DESC) AS Row FROM [data].[ViewPallets] ORDER BY Timestamp desc")
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
-    return (render_template('pallets.delete.html', pallets=pallets, palletDatas=palletDatas, username=username))
+    return (render_template('pallets.delete.html', pallets=pallets, palletDatas=palletDatas, Selected=Selected, username=username))

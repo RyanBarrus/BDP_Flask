@@ -8,12 +8,20 @@
 <form action="/pallets/delete" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
+
     {% if pallets %}
     <label for="Pallet">Pallet</label>
     <select name="Pallet" id="Pallet">
-        <option value="{{pallets[0]['Pallet']}}" selected>{{pallets[0]['Pallet']}}</option>
-        {% for pallet in pallets[1:] %}
-        <option value="{{pallet['Pallet']}}">{{pallet['Pallet']}}</option>
+        {% for pallet in pallets %}
+
+            {% if pallet['Pallet'] == Selected %}
+                <option value="{{pallet['Pallet']}}" selected>{{pallet['Pallet']}}</option>
+            {% endif %}
+
+            {% if pallet['Pallet'] != Selected %}
+                <option value="{{pallet['Pallet']}}">{{pallet['Pallet']}}</option>
+            {% endif %}
+
         {% endfor %}
     </select>
     <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
