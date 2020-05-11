@@ -80,10 +80,7 @@
     </div>
 
     <div class="container body-content">
-        {% block content %}{% endblock %}
-        <hr />
-        <footer>
-            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
 
 
@@ -104,6 +101,11 @@
 
               {% endif %}
             {% endwith %}
+
+        {% block content %}{% endblock %}
+        <hr />
+        <footer>
+
         </footer>
     </div>
 

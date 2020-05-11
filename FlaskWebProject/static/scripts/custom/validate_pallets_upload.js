@@ -1,11 +1,20 @@
 function validate(form) {
     event.preventDefault();
 
+    var today = new Date();
+
+    document.getElementById("print_PalletNumber").innerHTML = form.PalletNumber.value
+    document.getElementById("print_ItemNumber").innerHTML = form.ItemNumber.value
+    document.getElementById("print_Shift").innerHTML = 'Shift: '
+    document.getElementById("print_Date").innerHTML = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    document.getElementById("print_Time").innerHTML = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
     var CaseCodes = []
 
     for (var field of form.cases) {
         if (field.value > 0) {
             CaseCodes.push(field.value)
+            document.getElementById("print_" + field.id).innerHTML = field.value
         }
     }
 

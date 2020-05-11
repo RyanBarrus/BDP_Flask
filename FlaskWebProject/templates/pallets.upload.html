@@ -5,7 +5,7 @@
 <h2>Pallets - Upload</h2>
 
 <form action="/pallets/upload" method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}"/>
 
     <label for="PalletNumber">Pallet Number</label>
     <input type="text" name="PalletNumber" id="PalletNumber" pattern="0010895611002\d{7}" required/>
@@ -36,14 +36,38 @@
     <button class="btn btn-primary" onClick="validate(this.form)">Upload</button>
 </form>
 
+<div id="printarea">
+
+    <div id="details">
+        <p class="details-heading-text" id="print_PalletNumber"></p>
+        <p class="details-heading-text" id="print_ItemNumber"></p>
+        <p class="details-heading-text" id="print_Shift"></p>
+        <p class="details-heading-text" id="print_Date"></p>
+        <p class="details-heading-text" id="print_Time"></p>
+        <hr/>
+        {% for case in cases %}
+        <p class="details-lines-text" id="print_case{{case}}"></p>
+        <p class="details-lines-text">|</p>
+        {% endfor %}
+    </div>
+    <div id="barcode">
+        <img id="barcodeimage" src="">
+    </div>
+
+</div>
 
 
-{% endblock %}
+
+{% endblock %}\
 
 
 {% block scripts %}
+
+<link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+
 <script src="/static/scripts/custom/Enter_NoSubmit.js"></script>
 <script src="/static/scripts/custom/validate_pallets_upload.js"></script>
+<script src="/static/scripts/custom/utility/fetch_barcode.js"></script>
 <script src="/static/scripts/custom/utility/fetch_validate_pallet_casecount.js"></script>
 {% endblock %}
 

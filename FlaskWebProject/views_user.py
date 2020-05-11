@@ -129,7 +129,7 @@ def userPermissions():
             query = "EXEC [users].PermissionsForUser @UserID = ?"
             parameters = userid
             permissionDatas = bdp_sqlserver.get_rows(query, parameters)
-            flash('Permissions updated', "success")
+            flash('User permissions updated', "success")
 
         if request.form['submit_button'] == "SetDefaults":
             selections = request.form.getlist('MultiDefaultPermissions')
@@ -150,7 +150,7 @@ def userPermissions():
             query = "EXEC [users].UpdateDefaultPermissions"
             bdp_sqlserver.sql_execute(query)
             currentuser.setPermissions(userid)
-            flash('Permissions updated', "success")
+            flash('Default permissions updated', "success")
 
     users = bdp_sqlserver.get_rows("SELECT [UserID], [UserName] FROM [users].[login]")
     defaultPermissions = bdp_sqlserver.get_rows("EXEC [Users].DefaultPermissions")

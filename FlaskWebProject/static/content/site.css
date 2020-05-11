@@ -52,6 +52,68 @@ input[type="checkbox"].input-validation-error {
   border-radius: 25px !important;
 }
 
-.hidden{
-   visibility:hidden;
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printarea, #printarea * {
+    visibility: visible;
+  }
+  #printarea {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+#printarea {
+    visibility:hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 4.75in;
+    width: 2.75in;
+}
+
+
+#details {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 3.75in;
+    width: 2.75in;
+    text-align:center;
+}
+
+
+#barcode {
+    position: absolute;
+    left: 15px;
+    top: 3.75in;
+    height: 1in;
+
+}
+
+.details-heading-text {
+    font-size:18px;
+    margin: 4px;
+}
+
+.details-lines-text {
+    float:left;
+    margin: 4px;
+}
+
+#TestingSSCC {
+    position: absolute;
+    left: 0;
+    top: 500;
+}
+
+#TestingButton {
+    position: absolute;
+    left: 0;
+    top: 550;
 }

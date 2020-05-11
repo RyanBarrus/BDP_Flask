@@ -29,6 +29,8 @@ function fetch_validate_pallet_casecount(form,jsonToServer) {
               } else if ("Pallet" in data.ExistingPalletAssignment) {
                 toastr.error("CaseCode " + data.ExistingPalletAssignment['CaseBarcode'] + " already exists, it is assigned to " + data.ExistingPalletAssignment['Pallet'])
               } else {
+                getbarcode(csrf_token,PalletNumber)
+                setTimeout(function(){print()}, 1000);
                 document.getElementById("submit-button").click();
               };
 

@@ -1,7 +1,23 @@
 from FlaskWebProject.globals import *
 from flask import request, make_response, jsonify
+from FlaskWebProject.ImageWithoutTextWriter import ImageWithoutTextWriter
 from FlaskWebProject import app
+from io import BytesIO
+from barcode import Gs1_128
 
+import base64
+
+
+@app.route("/fetch/barcode", methods=["POST"])
+def fetchBarcode():
+    req = request.get_json()
+    rv = BytesIO()
+    writer = ImageWithoutTextWriter()
+    writer.set_options({"dpi":150, "print_text":False})
+    Gs1_128(req['ToBarcode'], writer=writer).write(rv)
+    rv.seek(0)
+    img_base64 = base64.b64encode(rv.read())
+    return jsonify({'barcodeimage': str(img_base64)})
 
 
 def lookupPalletCount(ItemNumber):

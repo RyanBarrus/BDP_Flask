@@ -3,12 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="4dfffda3-86ee-42fd-af82-62add0245dec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_salesorder_upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_salesorder_upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/content/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/content/site.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/utility/fetch_validate_pallet_casecount.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/utility/fetch_validate_pallet_casecount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_fetch.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_fetch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="BDP_Flask" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,11 +51,33 @@
       <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\scripts\custom" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\scripts\custom\utility" />
       <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\scripts\custom" />
       <recent name="C:\Users\RBarrus\Documents\GitHub\BDP_Flask\FlaskWebProject\static\images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.runserver">
+    <configuration name="barcodetesting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="BDP_Flask" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FlaskWebProject" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FlaskWebProject/barcodetesting.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="runserver" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="BDP_Flask" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -71,6 +102,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.runserver" />
+        <item itemvalue="Python.barcodetesting" />
       </list>
     </recent_temporary>
   </component>
@@ -96,22 +128,22 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="614" y="174" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1588950394051" />
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom" timestamp="1588975365979">
+    <state width="1899" height="222" key="GridCell.Tab.0.bottom" timestamp="1589215467093">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1588975365979" />
-    <state width="1899" height="222" key="GridCell.Tab.0.center" timestamp="1588975365979">
+    <state width="1899" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589215467093" />
+    <state width="1899" height="222" key="GridCell.Tab.0.center" timestamp="1589215467093">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1588975365979" />
-    <state width="1899" height="222" key="GridCell.Tab.0.left" timestamp="1588975365979">
+    <state width="1899" height="222" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589215467093" />
+    <state width="1899" height="222" key="GridCell.Tab.0.left" timestamp="1589215467092">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1588975365979" />
-    <state width="1899" height="222" key="GridCell.Tab.0.right" timestamp="1588975365979">
+    <state width="1899" height="222" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589215467092" />
+    <state width="1899" height="222" key="GridCell.Tab.0.right" timestamp="1589215467093">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1588975365979" />
+    <state width="1899" height="222" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589215467093" />
     <state width="1899" height="396" key="GridCell.Tab.1.bottom" timestamp="1588700552388">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
