@@ -37,8 +37,9 @@ function validate(form) {
                 if (data.PalletExistingCount > 0) {
                     toastr.error(PalletNumber + " already exists, it has " + data.PalletExistingCount + " cases assigned to it")
                 } else {
-                    console.log("about to submit")
-                    document.getElementById("submit-button").click();
+                    getbarcode(csrf_token,PalletNumber)
+                    setTimeout(function(){print()}, 1000);
+                    setTimeout(function(){document.getElementById("submit-button").click();}, 2000);
                 }
 
             });

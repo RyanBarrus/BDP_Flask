@@ -421,6 +421,8 @@ BEGIN
 END
 
 
+
+
 CREATE SEQUENCE data.SequenceAutoInsert
 	AS INT
 	START WITH 1
@@ -443,14 +445,12 @@ BEGIN
 	DECLARE @EndCase INT = @Current + @InsertQuantity - 1
 
 
-    SET @CURRENT = @NexutAutoValue
-
-    WHILE @CURRENT <= @EndCase
+    WHILE @NexutAutoValue <= @EndCase
     BEGIN
         INSERT INTO data.pallets
         VALUES
-        (@ItemNumber, 'Auto' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Shift, @Timestamp, @UploadUsername)
-        SET @CURRENT += 1
+        (@ItemNumber, 'Auto' + CAST(@NexutAutoValue AS VARCHAR(20)), @Pallet, @Shift, @Timestamp, @UploadUsername)
+        SET @NexutAutoValue = NEXT VALUE FOR data.SequenceAutoInsert
     END
 
 END
@@ -471,3 +471,6 @@ FROM users.permissions
 SELECT TOP 100 * 
 
 FROM data.pallets
+
+
+SELECT RequiredCount FROM [validation].[PalletCount]
