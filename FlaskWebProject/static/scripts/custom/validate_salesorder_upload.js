@@ -16,19 +16,20 @@ function validate(form) {
 
     QuantitiesOk = 1
     for (var remaining of remainings) {
-        if (remaining != "0") {
+        if (remaining.innerHTML != "0") {
             QuantitiesOk = 0
-
             break;
         }
     }
+
+
 
     if (uniques.size != PalletCount) {
         toastr.error("A pallet is used more than once, please review");
     } else if (QuantitiesOk == 0) {
         toastr.error("All remaining quantities must be 0")
     } else {
-        //form.submit()
+        form.submit()
     }
 
 }
@@ -88,7 +89,7 @@ function getpalletdetails(input) {
 
                         var PalletItem = data.PalletDetails.ItemNumber
 
-                        if (GPItems.indexOf(PalletItem) > 0) {
+                        if (GPItems.indexOf(PalletItem) >= 0) {
                             document.getElementsByName(row_itemnumber)[0].innerHTML = PalletItem
                             document.getElementsByName(row_quantity)[0].value = data.PalletDetails.Quantity
                             document.getElementsByName(nextrow_pallet)[0].focus()
