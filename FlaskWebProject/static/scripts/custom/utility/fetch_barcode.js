@@ -19,14 +19,10 @@ function getbarcode(csrf_token, PalletNumber) {
               return;
             }
             response.json().then(function (data) {
-                console.log(data)
                 barcodeimage = document.getElementById("barcodeimage")
                 bytestring = data['barcodeimage']
 			    image = bytestring.split('\'')[1]
 				barcodeimage.src = 'data:image/jpeg;base64,'+image
-
-				console.log(barcodeimage)
-
             });
           })
           .catch(function (error) {

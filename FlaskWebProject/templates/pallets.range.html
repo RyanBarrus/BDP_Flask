@@ -27,7 +27,44 @@
 
     <button style="display: none;" type="submit" id="submit-button">Not Shown</button>
     <button class="btn btn-primary" onClick="validate(this.form)">Upload</button>
+
+
+    <hr>
+    <label for="Shift">Shift</label>
+    <select name="Shift" id="Shift">
+        {% for Shift in ShiftList %}
+
+            {% if Shift['Selected']|int() == 1 %}
+                <option value="{{Shift['Shift']}}" selected>{{Shift['Shift']}}</option>
+            {% endif %}
+
+            {% if Shift['Selected']|int() == 0 %}
+                <option value="{{Shift['Shift']}}">{{Shift['Shift']}}</option>
+            {% endif %}
+
+        {% endfor %}
+    </select>
 </form>
+
+<div id="printarea">
+
+    <div id="details">
+        <p class="details-heading-text" id="print_PalletNumber"></p>
+        <p class="details-heading-text" id="print_ItemNumber"></p>
+        <p class="details-heading-text" id="print_Shift"></p>
+        <p class="details-heading-text" id="print_Date"></p>
+        <p class="details-heading-text" id="print_Time"></p>
+        <hr/>
+        <p class="details-lines-text" id="print_StartCase"></p>
+        <p class="details-lines-text">|</p>
+        <p class="details-lines-text" id="print_EndCase"></p>
+
+    </div>
+    <div id="barcode">
+        <img id="barcodeimage" src="">
+    </div>
+
+</div>
 
 {% endblock %}
 

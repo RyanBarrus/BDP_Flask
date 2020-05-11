@@ -6,9 +6,12 @@ from hashlib import md5
 import pandas as pd
 import uuid
 
+
+
 @app.before_request
 def before_request():
     SessionID = request.cookies.get("SessionID")
+
     if SessionID not in currentuser.Sessions:
         SessionID = str(uuid.uuid4())
         currentuser.guest(SessionID)

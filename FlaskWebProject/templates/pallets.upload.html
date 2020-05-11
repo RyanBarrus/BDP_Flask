@@ -34,6 +34,23 @@
 
     <button style="display: none;" type="submit" id="submit-button">Not Shown</button>
     <button class="btn btn-primary" onClick="validate(this.form)">Upload</button>
+
+
+    <hr>
+    <label for="Shift">Shift</label>
+    <select name="Shift" id="Shift">
+        {% for Shift in ShiftList %}
+
+            {% if Shift['Selected']|int() == 1 %}
+                <option value="{{Shift['Shift']}}" selected>{{Shift['Shift']}}</option>
+            {% endif %}
+
+            {% if Shift['Selected']|int() == 0 %}
+                <option value="{{Shift['Shift']}}">{{Shift['Shift']}}</option>
+            {% endif %}
+
+        {% endfor %}
+    </select>
 </form>
 
 <div id="printarea">

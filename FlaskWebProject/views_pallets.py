@@ -16,6 +16,12 @@ def palletsUpload():
         CaseBarcodes = [x for x in request.form.getlist('cases') if x != '']
         CaseCount = len(CaseBarcodes)
 
+        for shift in ShiftList :
+            if request.form["Shift"] == shift["Shift"]:
+                shift["Selected"] = 1
+            else :
+                shift["Selected"] = 0
+
         df = pd.DataFrame(
             {'ItemNumber': [ItemNumber] * CaseCount,
              'CaseBarcode': CaseBarcodes,
@@ -36,7 +42,7 @@ def palletsUpload():
 
     cases = [x for x in range(1, 31)]
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[PalletItemList]")
-    return (render_template('pallets.upload.html', ItemList=ItemList, cases=cases, username=username))
+    return (render_template('pallets.upload.html', ItemList=ItemList, cases=cases, ShiftList=ShiftList, username=username))
 
 
 @app.route('/pallets/range', methods=['GET', 'POST'])
@@ -55,8 +61,14 @@ def palletsRange():
         bdp_sqlserver.sql_execute(query,parameters)
         flash('Upload successful', "success")
 
+        for shift in ShiftList:
+            if request.form["Shift"] == shift["Shift"]:
+                shift["Selected"] = 1
+            else:
+                shift["Selected"] = 0
+
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[RangeItemList]")
-    return (render_template('pallets.range.html', ItemList=ItemList, username=username))
+    return (render_template('pallets.range.html', ItemList=ItemList, ShiftList=ShiftList, username=username))
 
 @app.route('/pallets/auto', methods=['GET', 'POST'])
 def palletsAuto():
@@ -73,8 +85,14 @@ def palletsAuto():
         bdp_sqlserver.sql_execute(query, parameters)
         flash('Upload successful', "success")
 
+        for shift in ShiftList:
+            if request.form["Shift"] == shift["Shift"]:
+                shift["Selected"] = 1
+            else:
+                shift["Selected"] = 0
+
     ItemList = bdp_sqlserver.get_rows("SELECT [ItemNumber] FROM [validation].[AutoItemList]")
-    return (render_template('pallets.auto.html', ItemList=ItemList, username=username))
+    return (render_template('pallets.auto.html', ItemList=ItemList, ShiftList=ShiftList, username=username))
 
 
 @app.route('/pallets/delete', methods=['GET', 'POST'])

@@ -31,7 +31,8 @@ function fetch_validate_pallet_casecount(form,jsonToServer) {
               } else {
                 getbarcode(csrf_token,PalletNumber)
                 setTimeout(function(){print()}, 1000);
-                document.getElementById("submit-button").click();
+                setTimeout(function(){document.getElementById("submit-button").click();}, 2000);
+
               };
 
             });
