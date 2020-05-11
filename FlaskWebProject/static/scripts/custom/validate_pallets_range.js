@@ -1,7 +1,7 @@
 function validate(form) {
     event.preventDefault();
 
-    var CaseCount = form.EndCase.value - form.StartCase.value;
+    var CaseCount = form.EndCase.value - form.StartCase.value + 1;
 
     var today = new Date();
     document.getElementById("print_PalletNumber").innerHTML = form.PalletNumber.value
@@ -14,11 +14,21 @@ function validate(form) {
     document.getElementById("print_EndCase").innerHTML = 'EndCase: ' + form.EndCase.value
 
 
+    var StartCase = form.StartCase.value
+    var EndCase = form.EndCase.value
+    var CaseCodes = []
+
+    while (StartCase <= EndCase) {
+        CaseCodes.push("Range" + StartCase)
+        StartCase ++
+    }
+
     var jsonToServer = {
         "ItemNumber": form.ItemNumber.value,
         "PalletNumber" : form.PalletNumber.value,
         "csrf_token" : form.csrf_token.value,
-        "CaseCount" : CaseCount
+        "CaseCount" : CaseCount,
+        "CaseCodes" : CaseCodes
     };
 
     fetch_validate_pallet_casecount(form,jsonToServer);
