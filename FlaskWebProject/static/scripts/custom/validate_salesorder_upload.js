@@ -22,8 +22,6 @@ function validate(form) {
         }
     }
 
-
-
     if (uniques.size != PalletCount) {
         toastr.error("A pallet is used more than once, please review");
     } else if (QuantitiesOk == 0) {

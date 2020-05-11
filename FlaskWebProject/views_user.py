@@ -19,6 +19,8 @@ def before_request():
         resp = make_response(render_template('user.login.html', username=username))
         resp.set_cookie('SessionID', SessionID)
         return resp
+    else:
+        currentuser.checkIn(SessionID)
 
     username = currentuser.Sessions[SessionID]['username']
     permissions = currentuser.Sessions[SessionID]['permissions']
