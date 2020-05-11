@@ -3,17 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="4dfffda3-86ee-42fd-af82-62add0245dec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/globals.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/globals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/utility/fetch_barcode.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/utility/fetch_barcode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/utility/fetch_validate_pallet_casecount.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/utility/fetch_validate_pallet_casecount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/misc/SQLScripts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/misc/SQLScripts.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_auto.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_auto.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_range.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_range.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.auto.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.auto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.range.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.range.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.delete.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/pallets.upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_fetch.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_fetch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_pallets.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_pallets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/views_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/views_user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,22 +128,22 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="614" y="174" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1588950394051" />
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom" timestamp="1589218752771">
+    <state width="1899" height="222" key="GridCell.Tab.0.bottom" timestamp="1589224266645">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589218752771" />
-    <state width="1899" height="222" key="GridCell.Tab.0.center" timestamp="1589218752771">
+    <state width="1899" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589224266645" />
+    <state width="1899" height="222" key="GridCell.Tab.0.center" timestamp="1589224266644">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589218752771" />
-    <state width="1899" height="222" key="GridCell.Tab.0.left" timestamp="1589218752771">
+    <state width="1899" height="222" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589224266644" />
+    <state width="1899" height="222" key="GridCell.Tab.0.left" timestamp="1589224266644">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589218752771" />
-    <state width="1899" height="222" key="GridCell.Tab.0.right" timestamp="1589218752771">
+    <state width="1899" height="222" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589224266644" />
+    <state width="1899" height="222" key="GridCell.Tab.0.right" timestamp="1589224266644">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589218752771" />
+    <state width="1899" height="222" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589224266644" />
     <state width="1899" height="396" key="GridCell.Tab.1.bottom" timestamp="1588700552388">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
@@ -168,5 +164,9 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="461" y="222" key="SettingsEditor/0.0.1920.1160@0.0.1920.1160" timestamp="1588790883615" />
+    <state x="598" y="195" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1589223924836">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="598" y="195" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1160@0.0.1920.1160" timestamp="1589223924836" />
   </component>
 </project>

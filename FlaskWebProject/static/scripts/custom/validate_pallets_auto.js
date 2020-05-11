@@ -3,17 +3,18 @@ function validate(form) {
     var selected = document.getElementById("ItemNumber").value;
     var PalletNumber = document.getElementById("PalletNumber").value;
 
+    var today = new Date();
     document.getElementById("print_PalletNumber").innerHTML = form.PalletNumber.value
     document.getElementById("print_ItemNumber").innerHTML = form.ItemNumber.value
     document.getElementById("print_Shift").innerHTML = 'Shift: ' + form.Shift.value
     document.getElementById("print_Date").innerHTML = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     document.getElementById("print_Time").innerHTML = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    document.getElementById("print_AutoCaseCount").innerHTML = 'AutoCaseCount: ' + form.ValidationPalletCounts.value
+    document.getElementById("print_AutoCaseCount").innerHTML = 'AutoCaseCount: ' + form.InsertQuantity.value
 
     csrf_token = document.getElementById("csrf_token").value
     jsonToServer = {
-        'ItemNumber':selected
+        'PalletNumber':PalletNumber
     }
 
     fetch(`${window.origin}/fetch/lookuppalletexisting`, {
@@ -73,7 +74,7 @@ function getpalletcounts() {
             }
             response.json().then(function (data) {
 
-                var html = '<hr><label for="InsertQuantity">Auto upload case count:</label><input name = "InsertQuantity" value="'+ data.requiredCount + '" readonly></input><hr>';
+                var html = '<hr><label for="InsertQuantity">Auto upload case count:</label><input name = "InsertQuantity" id ="InsertQuantity" value="'+ data.requiredCount + '" readonly></input><hr>';
                 document.getElementById("ValidationPalletCounts").innerHTML = html;
 
             });

@@ -15,17 +15,19 @@ def palletsUpload():
         Timestamp = str(datetime.now())
         CaseBarcodes = [x for x in request.form.getlist('cases') if x != '']
         CaseCount = len(CaseBarcodes)
+        ChosenShift = request.form["Shift"]
 
         for shift in ShiftList :
-            if request.form["Shift"] == shift["Shift"]:
+            if ChosenShift == shift["Shift"]:
                 shift["Selected"] = 1
-            else :
+            else:
                 shift["Selected"] = 0
 
         df = pd.DataFrame(
             {'ItemNumber': [ItemNumber] * CaseCount,
              'CaseBarcode': CaseBarcodes,
              'Pallet': [Pallet] * CaseCount,
+             'Shift': [ChosenShift] * CaseCount,
              'Timestamp': [Timestamp] * CaseCount,
              'UploadUsername': [username] * CaseCount
             }
@@ -56,13 +58,14 @@ def palletsRange():
         UploadUsername = username
         StartCase = request.form['StartCase']
         EndCase = request.form['EndCase']
-        query = "EXEC [data].[RangeInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @StartCase =?, @EndCase =?"
-        parameters = (ItemNumber,Pallet,Timestamp,UploadUsername,StartCase,EndCase)
+        ChosenShift = request.form["Shift"]
+        query = "EXEC [data].[RangeInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @StartCase =?, @EndCase =?, @Shift = ?"
+        parameters = (ItemNumber, Pallet, Timestamp, UploadUsername, StartCase, EndCase, ChosenShift)
         bdp_sqlserver.sql_execute(query,parameters)
         flash('Upload successful', "success")
 
         for shift in ShiftList:
-            if request.form["Shift"] == shift["Shift"]:
+            if ChosenShift == shift["Shift"]:
                 shift["Selected"] = 1
             else:
                 shift["Selected"] = 0
@@ -80,13 +83,14 @@ def palletsAuto():
         Timestamp = str(datetime.now())
         UploadUsername = username
         InsertQuantity = request.form['InsertQuantity']
-        query = "EXEC [data].[AutoInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @InsertQuantity = ?"
-        parameters = (ItemNumber, Pallet, Timestamp, UploadUsername, InsertQuantity)
+        ChosenShift = request.form["Shift"]
+        query = "EXEC [data].[AutoInsert] @ItemNumber =?, @Pallet=?, @Timestamp=?, @UploadUsername=?, @InsertQuantity = ?, @Shift = ?"
+        parameters = (ItemNumber, Pallet, Timestamp, UploadUsername, InsertQuantity, ChosenShift)
         bdp_sqlserver.sql_execute(query, parameters)
         flash('Upload successful', "success")
 
         for shift in ShiftList:
-            if request.form["Shift"] == shift["Shift"]:
+            if ChosenShift == shift["Shift"]:
                 shift["Selected"] = 1
             else:
                 shift["Selected"] = 0

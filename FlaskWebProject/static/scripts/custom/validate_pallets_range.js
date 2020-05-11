@@ -3,6 +3,7 @@ function validate(form) {
 
     var CaseCount = form.EndCase.value - form.StartCase.value;
 
+    var today = new Date();
     document.getElementById("print_PalletNumber").innerHTML = form.PalletNumber.value
     document.getElementById("print_ItemNumber").innerHTML = form.ItemNumber.value
     document.getElementById("print_Shift").innerHTML = 'Shift: ' + form.Shift.value

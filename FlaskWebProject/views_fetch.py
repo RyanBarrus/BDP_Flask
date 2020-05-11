@@ -27,14 +27,11 @@ def lookupPalletCount(ItemNumber):
     return(requiredCount)
 
 
-def lookupPalletExisting(ItemNumber):
+def lookupPalletExisting(PalletNumber):
     query = "SELECT COUNT(*) AS PalletExistingCount FROM [data].[pallets] WHERE Pallet = ?"
-    parameters = ItemNumber
+    parameters = PalletNumber
     PalletExistingCount = bdp_sqlserver.get_rows(query, parameters)[0][0]
     return(PalletExistingCount)
-
-
-
 
 
 @app.route("/fetch/lookuppalletcount", methods=["POST"])
@@ -48,7 +45,7 @@ def fetchLookupPalletCount():
 @app.route("/fetch/lookuppalletexisting", methods=["POST"])
 def fetchLookupPalletExisting():
     req = request.get_json()
-    PalletExistingCount = lookupPalletCount(req['ItemNumber'])
+    PalletExistingCount = lookupPalletExisting(req['PalletNumber'])
 
     return make_response(jsonify({"PalletExistingCount": PalletExistingCount}), 200)
 
@@ -57,8 +54,9 @@ def fetchLookupPalletExisting():
 def fetchValidatePallet():
     req = request.get_json()
     ItemNumber = req['ItemNumber']
+    PalletNumber = req['PalletNumber']
     requiredCount = lookupPalletCount(ItemNumber)
-    PalletExistingCount = lookupPalletExisting(ItemNumber)
+    PalletExistingCount = lookupPalletExisting(PalletNumber)
 
     ExistingPalletAssignment = {}
     if 'CaseCodes' in req:

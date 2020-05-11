@@ -43,11 +43,11 @@ CREATE TABLE [users].[PermissionsDefaults](
 )
 
 
-
 CREATE TABLE [data].[pallets](
 	[ItemNumber] [VARCHAR](30) NOT NULL,
 	[CaseBarcode] [VARCHAR](10) PRIMARY KEY,
 	[Pallet] [char](20) NOT NULL,
+	[Shift] CHAR(1) NULL,
 	[Timestamp] [DATETIME2](7) NOT NULL,
 	[UploadUsername] VARCHAR(99)
 )
@@ -394,14 +394,14 @@ END
 
 
 GO
-
 CREATE PROCEDURE [data].[RangeInsert]
 @ItemNumber VARCHAR(35),
 @Pallet CHAR(20),
 @Timestamp DATETIME2,
 @UploadUsername VARCHAR(30),
 @StartCase INT,
-@EndCase INT
+@EndCase INT,
+@Shift CHAR(1)
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -414,7 +414,7 @@ BEGIN
     BEGIN
         INSERT INTO data.pallets
         VALUES
-        (@ItemNumber, 'Range' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Timestamp, @UploadUsername)
+        (@ItemNumber, 'Range' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Shift, @Timestamp, @UploadUsername)
         SET @CURRENT += 1
     END
 
@@ -432,7 +432,8 @@ CREATE PROCEDURE [data].[AutoInsert]
 @Pallet CHAR(20),
 @Timestamp DATETIME2,
 @UploadUsername VARCHAR(30),
-@InsertQuantity INT
+@InsertQuantity INT,
+@Shift CHAR(1)
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -448,7 +449,7 @@ BEGIN
     BEGIN
         INSERT INTO data.pallets
         VALUES
-        (@ItemNumber, 'Auto' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Timestamp, @UploadUsername)
+        (@ItemNumber, 'Auto' + CAST(@CURRENT AS VARCHAR(20)), @Pallet, @Shift, @Timestamp, @UploadUsername)
         SET @CURRENT += 1
     END
 
@@ -466,3 +467,7 @@ FROM users.permissions
 
 
 
+
+SELECT TOP 100 * 
+
+FROM data.pallets
