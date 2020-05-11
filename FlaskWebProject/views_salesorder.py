@@ -48,10 +48,12 @@ def salesorderUpload():
 @app.route('/salesorder/delete', methods=['GET', 'POST'])
 def salesorderDelete():
     orderDatas = None
+    Selected = ""
     if request.method == 'POST':
         if request.form['submit_button'] == "View":
             query = "SELECT * FROM [data].[Shipments] WHERE SalesOrderNumber = ?"
-            parameters = request.form['SalesOrderNumber']
+            Selected = request.form['SalesOrderNumber']
+            parameters = Selected
             orderDatas = bdp_sqlserver.get_rows(query, parameters)
         if request.form['submit_button'] == "Delete":
             SalesOrderNumber = request.form['SalesOrderNumber']
@@ -64,7 +66,7 @@ def salesorderDelete():
     orders = bdp_sqlserver.get_rows("SELECT SalesOrderNumber FROM [data].[ViewShipments] ORDER BY Timestamp Desc")
     SessionID = request.cookies.get("SessionID")
     username = currentuser.Sessions[SessionID]['username']
-    return (render_template('salesorder.delete.html', orders=orders, orderDatas=orderDatas, username=username))
+    return (render_template('salesorder.delete.html', orders=orders, orderDatas=orderDatas, Selected=Selected, username=username))
 
 
 @app.route('/salesorder/wrinlist', methods=['GET', 'POST'])

@@ -8,13 +8,20 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
     {% if orders %}
-    <label for="SalesOrderNumber">Pallet</label>
+    <label for="SalesOrderNumber">Sales Order Number</label>
     <select name="SalesOrderNumber" id="SalesOrderNumber">
-        <option value="{{orders[0]['SONumber']}}" selected>{{orders[0]['SONumber']}}</option>
-        {% for order in orders[1:] %}
-        <option value="{{order['SONumber']}}">{{order['SONumber']}}</option>
+        {% for order in orders %}
+
+            {% if order['SONumber'] == Selected %}
+                <option value="{{order['SONumber']}}" selected>{{order['SONumber']}}</option>
+            {% endif %}
+
+            {% if order['SONumber'] != Selected %}
+                <option value="{{order['SONumber']}}">{{order['SONumber']}}</option>
+            {% endif %}
+
         {% endfor %}
-    </select>
+
     <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
     {% endif %}
     <hr />
