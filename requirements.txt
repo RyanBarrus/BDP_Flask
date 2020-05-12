@@ -5,3 +5,6 @@ pyodbc
 sqlalchemy
 formencode
 waitress
+python-barcode
+python-barcode[images]
+Pillow

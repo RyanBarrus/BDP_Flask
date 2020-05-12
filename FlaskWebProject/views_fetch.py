@@ -4,7 +4,6 @@ from FlaskWebProject.ImageWithoutTextWriter import ImageWithoutTextWriter
 from FlaskWebProject import app
 from io import BytesIO
 from barcode import Gs1_128
-
 import base64
 
 
