@@ -275,6 +275,7 @@ INSERT INTO users.Permissions VALUES
 ('/user/create'),
 ('/user/delete'),
 ('/user/permissions'),
+('/user/autologoutduration'),
 ('/pallets/upload'),
 ('/pallets/range'),
 ('/pallets/auto'),
@@ -472,5 +473,8 @@ SELECT TOP 100 *
 
 FROM data.pallets
 
+WHERE CaseBarcode LIKE 'range%'
 
-SELECT RequiredCount FROM [validation].[PalletCount]
+
+
+
