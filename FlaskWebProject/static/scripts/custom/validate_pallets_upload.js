@@ -3,7 +3,7 @@ function validate(form) {
 
     var today = new Date();
 
-    var re = new RegExp("0010895611002[0-9][0-9][0-9][0-9][0-9][0-9][0-9]");
+    var re = new RegExp("^0010895611002[0-9][0-9][0-9][0-9][0-9][0-9][0-9]$");
 
     if (!re.test(form.PalletNumber.value))  {
         toastr.error(form.PalletNumber.value + " doesnt not match the required format: 0010895611002#######")

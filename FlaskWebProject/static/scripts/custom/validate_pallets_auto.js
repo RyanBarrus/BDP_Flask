@@ -3,7 +3,7 @@ function validate(form) {
     var selected = document.getElementById("ItemNumber").value;
     var PalletNumber = document.getElementById("PalletNumber").value;
 
-    var re = new RegExp("0010895611002[0-9][0-9][0-9][0-9][0-9][0-9][0-9]");
+    var re = new RegExp("^0010895611002[0-9][0-9][0-9][0-9][0-9][0-9][0-9]$");
 
 
     if (!re.test(PalletNumber))  {
