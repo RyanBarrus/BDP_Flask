@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4dfffda3-86ee-42fd-af82-62add0245dec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_auto.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_auto.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_range.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_range.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/static/scripts/custom/validate_pallets_upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/salesorder.delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/salesorder.delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/validation.autoitem.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/validation.autoitem.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/validation.palletitem.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/validation.palletitem.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlaskWebProject/templates/validation.rangeitem.html" beforeDir="false" afterPath="$PROJECT_DIR$/FlaskWebProject/templates/validation.rangeitem.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,22 +126,22 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="614" y="174" key="CommitChangelistDialog2/0.0.1920.1160@0.0.1920.1160" timestamp="1588950394051" />
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom" timestamp="1589298617874">
+    <state width="1899" height="222" key="GridCell.Tab.0.bottom" timestamp="1589299895178">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589298617874" />
-    <state width="1899" height="222" key="GridCell.Tab.0.center" timestamp="1589298617874">
+    <state width="1899" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1589299895178" />
+    <state width="1899" height="222" key="GridCell.Tab.0.center" timestamp="1589299895177">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589298617874" />
-    <state width="1899" height="222" key="GridCell.Tab.0.left" timestamp="1589298617874">
+    <state width="1899" height="222" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1589299895177" />
+    <state width="1899" height="222" key="GridCell.Tab.0.left" timestamp="1589299895177">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589298617874" />
-    <state width="1899" height="222" key="GridCell.Tab.0.right" timestamp="1589298617874">
+    <state width="1899" height="222" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1589299895177" />
+    <state width="1899" height="222" key="GridCell.Tab.0.right" timestamp="1589299895178">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state width="1899" height="222" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589298617874" />
+    <state width="1899" height="222" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1589299895178" />
     <state width="1899" height="396" key="GridCell.Tab.1.bottom" timestamp="1589295708036">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>

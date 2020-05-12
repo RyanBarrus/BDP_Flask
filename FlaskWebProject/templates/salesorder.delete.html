@@ -12,16 +12,16 @@
     <select name="SalesOrderNumber" id="SalesOrderNumber">
         {% for order in orders %}
 
-            {% if order['SONumber'] == Selected %}
-                <option value="{{order['SONumber']}}" selected>{{order['SONumber']}}</option>
+            {% if order['SalesOrderNumber'] == Selected %}
+                <option value="{{order['SalesOrderNumber']}}" selected>{{order['SalesOrderNumber']}}</option>
             {% endif %}
 
-            {% if order['SONumber'] != Selected %}
-                <option value="{{order['SONumber']}}">{{order['SONumber']}}</option>
+            {% if order['SalesOrderNumber'] != Selected %}
+                <option value="{{order['SalesOrderNumber']}}">{{order['SalesOrderNumber']}}</option>
             {% endif %}
 
         {% endfor %}
-
+    </select>
     <button class="btn btn-primary" type="submit" name="submit_button" value="View">View</button>
     {% endif %}
     <hr />
@@ -37,7 +37,7 @@
         </tr>
         {% for orderData in orderDatas %}
         <tr>
-            <td>{{orderData['SONumber']}}</td>
+            <td>{{orderData['SalesOrderNumber']}}</td>
             <td>{{orderData['Pallet']}}</td>
             <td>{{orderData['Quantity']}}</td>
             <td>{{orderData['Timestamp']}}</td>
